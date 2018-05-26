@@ -62,7 +62,7 @@ class LoginController : AppCompatActivity(), LoaderCallbacks<Cursor> {
                 startActivity(intent)
                 //Toast.makeText(this, "sucesso na autenticação", Toast.LENGTH_SHORT).show()
             }else{
-                Toast.makeText(this, "Error na autenticação!!!", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "Login e senhas incorretos!!!", Toast.LENGTH_SHORT).show()
             }
         })
     }
@@ -85,13 +85,14 @@ class LoginController : AppCompatActivity(), LoaderCallbacks<Cursor> {
 
     }
 
-    //Exibe ou esconde o inpute de nome
+    //Exibe ou esconde o inpute de nome para cadastro
     fun isRegister(view: View)
     {
         if (action_cad.isChecked){
             lbName.setVisibility(View.VISIBLE)
             name.requestFocus()
             email_sign_in_button.text = "Cadastrar"
+
         }
         else {
             lbName.setVisibility(View.INVISIBLE)
@@ -161,16 +162,18 @@ class LoginController : AppCompatActivity(), LoaderCallbacks<Cursor> {
         // Reset errors.
         email.error = null
         password.error = null
+        name.error = null
 
         // Armazenar valores no momento da tentativa de login.
         val emailStr = email.text.toString()
         val passwordStr = password.text.toString()
+        val nameStr = name.text.toString()
 
         var cancel = false
         var focusView: View? = null
 
         // Verifique se há uma senha válida, se o usuário digitou uma.
-        if (!TextUtils.isEmpty(passwordStr) && !isPasswordValid(passwordStr)) {
+        if (TextUtils.isEmpty(passwordStr) && !isPasswordValid(passwordStr)) {
             password.error = getString(R.string.error_invalid_password)
             focusView = password
             cancel = true
@@ -187,6 +190,20 @@ class LoginController : AppCompatActivity(), LoaderCallbacks<Cursor> {
             cancel = true
         }
 
+        // Verificar um nome foi inserido
+        if (TextUtils.isEmpty(nameStr) && action_cad.isChecked) {
+            name.error = getString(R.string.error_field_required)
+            focusView = name
+            cancel = true
+        }
+
+        // se for cadastro exige uma senha.
+        if (TextUtils.isEmpty(passwordStr) && action_cad.isChecked) {
+            password.error = getString(R.string.error_field_required)
+            focusView = password
+            cancel = true
+        }
+
         if (cancel) {
             // Havia um erro; não tente entrar e focar o primeiro
             // campo de formulário com um erro.
@@ -194,10 +211,22 @@ class LoginController : AppCompatActivity(), LoaderCallbacks<Cursor> {
         } else {
             // Mostre um spinner de progresso e inicie uma tarefa em segundo plano para
             // realizar a tentativa de login do usuário.
-            showProgress(true)
+            //showProgress(true) mostra progresse bar
 //            mAuthTask = UserLoginTask(emailStr, passwordStr)
 //            mAuthTask!!.execute(null as Void?)
-            signIn(emailStr, passwordStr)
+
+            if (action_cad.isChecked)
+            {
+
+            }else{
+                signIn(emailStr, passwordStr)
+                if (currentUser != null) {
+                    val intent = Intent(this@LoginController, MenuController::class.java)
+                    startActivity(intent)
+                    this@LoginController.finish()
+                }
+            }
+
 
         }
     }
