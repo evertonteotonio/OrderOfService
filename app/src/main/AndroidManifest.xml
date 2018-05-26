@@ -22,8 +22,16 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".controller.LoginActivityController"
-            android:label="@string/title_activity_login"></activity>
+            android:name=".controller.LoginController"
+            android:label="@string/title_activity_login" />
+        <activity
+            android:name=".controller.MainListController"
+            android:label="@string/title_activity_main_list_controller" />
+        <activity
+            android:name=".controller.MenuController"
+            android:label="@string/title_activity_menu_controller" />
+        <activity android:name=".controller.CadUSer" />
+        <activity android:name=".controller.CadUserController"></activity>
     </application>
 
 </manifest>

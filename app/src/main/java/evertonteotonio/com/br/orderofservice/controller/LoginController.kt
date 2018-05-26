@@ -23,27 +23,54 @@ import android.widget.TextView
 
 import java.util.ArrayList
 import android.Manifest.permission.READ_CONTACTS
+import android.content.Intent
+import android.util.Log
+import android.widget.Toast
+import com.google.android.gms.tasks.OnCompleteListener
+import com.google.firebase.auth.AuthResult
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import evertonteotonio.com.br.orderofservice.R
-import evertonteotonio.com.br.orderofservice.database.helper.database
 
 import kotlinx.android.synthetic.main.activity_login.*
+import kotlinx.android.synthetic.main.activity_login.view.*
 
 /**
  * Uma tela de login que oferece login via email/password.
  */
-class LoginActivityController : AppCompatActivity(), LoaderCallbacks<Cursor> {
+class LoginController : AppCompatActivity(), LoaderCallbacks<Cursor> {
     /**
      * Mantenha o controle da tarefa de login para garantir que possamos cancelá-la se solicitado.
      */
     private var mAuthTask: UserLoginTask? = null
 
-    private var authOrderServiceFirebase: FirebaseAuth? = null
+    //private var authOrderServiceFirebase: FirebaseAuth? = null
+
+    private var authOrderServiceFirebase = FirebaseAuth.getInstance()
+
+    private var currentUser: FirebaseUser? = authOrderServiceFirebase?.getCurrentUser()
+
+    fun signIn(email: String, password: String) {
+
+        Toast.makeText(this, "Autenticando...", Toast.LENGTH_SHORT).show()
+
+        authOrderServiceFirebase.signInWithEmailAndPassword(email, password).addOnCompleteListener(this, OnCompleteListener<AuthResult> { task ->
+
+            if(task.isSuccessful){
+                var intent = Intent(this, LoginController::class.java)
+                intent.putExtra("id", authOrderServiceFirebase.currentUser?.email)
+                startActivity(intent)
+                //Toast.makeText(this, "sucesso na autenticação", Toast.LENGTH_SHORT).show()
+            }else{
+                Toast.makeText(this, "Error na autenticação!!!", Toast.LENGTH_SHORT).show()
+            }
+        })
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
+
         // Configurar o formulário de login.
         populateAutoComplete()
         password.setOnEditorActionListener(TextView.OnEditorActionListener { _, id, _ ->
@@ -56,10 +83,25 @@ class LoginActivityController : AppCompatActivity(), LoaderCallbacks<Cursor> {
 
         email_sign_in_button.setOnClickListener { attemptLogin() }
 
-        //Firebase
-//        authOrderServiceFirebase = FirebaseAuth.getInstance();
+    }
+
+    //Exibe ou esconde o inpute de nome
+    fun isRegister(view: View)
+    {
+        if (action_cad.isChecked){
+            lbName.setVisibility(View.VISIBLE)
+            name.requestFocus()
+            email_sign_in_button.text = "Cadastrar"
+        }
+        else {
+            lbName.setVisibility(View.INVISIBLE)
+            email_sign_in_button.text = "Entrar"
+        }
 
     }
+
+
+
 
 //    override fun onStart() {
 //        super.onStart();
@@ -153,8 +195,10 @@ class LoginActivityController : AppCompatActivity(), LoaderCallbacks<Cursor> {
             // Mostre um spinner de progresso e inicie uma tarefa em segundo plano para
             // realizar a tentativa de login do usuário.
             showProgress(true)
-            mAuthTask = UserLoginTask(emailStr, passwordStr)
-            mAuthTask!!.execute(null as Void?)
+//            mAuthTask = UserLoginTask(emailStr, passwordStr)
+//            mAuthTask!!.execute(null as Void?)
+            signIn(emailStr, passwordStr)
+
         }
     }
 
@@ -238,7 +282,7 @@ class LoginActivityController : AppCompatActivity(), LoaderCallbacks<Cursor> {
 
     private fun addEmailsToAutoComplete(emailAddressCollection: List<String>) {
         //Crie o adaptador para informar ao AutoCompleteTextView o que mostrar em sua lista suspensa.
-        val adapter = ArrayAdapter(this@LoginActivityController,
+        val adapter = ArrayAdapter(this@LoginController,
                 android.R.layout.simple_dropdown_item_1line, emailAddressCollection)
 
         email.setAdapter(adapter)
@@ -258,10 +302,11 @@ class LoginActivityController : AppCompatActivity(), LoaderCallbacks<Cursor> {
     inner class UserLoginTask internal constructor(private val mEmail: String, private val mPassword: String) : AsyncTask<Void, Void, Boolean>() {
 
         override fun doInBackground(vararg params: Void): Boolean? {
-            // TODO: attempt authentication against a network service.
+            // TODO: tente autenticação contra um serviço de rede.
 
             try {
                 // Simule o acesso à rede.
+                signIn(mEmail, mPassword)
                 Thread.sleep(2000)
             } catch (e: InterruptedException) {
                 return false
