@@ -1,0 +1,59 @@
+{
+  "project_info": {
+    "project_number": "695845561860",
+    "firebase_url": "https://orderofservice-2ea69.firebaseio.com",
+    "project_id": "orderofservice-2ea69",
+    "storage_bucket": "orderofservice-2ea69.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:695845561860:android:eb046d6f247d6b41",
+        "android_client_info": {
+          "package_name": "evertonteotonio.com.br.orderofservice"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "695845561860-ujavsbbq686sbtoo4urcb6sncttrm1hq.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "evertonteotonio.com.br.orderofservice",
+            "certificate_hash": "fac1e66eefc1ebb5e7d26c1e6a0e275e76f23b2b"
+          }
+        },
+        {
+          "client_id": "695845561860-fialatoedtdehqa25607ihr0s0lsflof.apps.googleusercontent.com",
+          "client_type": 3
+        },
+        {
+          "client_id": "695845561860-fialatoedtdehqa25607ihr0s0lsflof.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBsT1X4cTEDpA8vlLjAemXuR6pcoZ5Y2ik"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "695845561860-fialatoedtdehqa25607ihr0s0lsflof.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
