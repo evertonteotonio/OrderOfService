@@ -23,6 +23,7 @@ import android.widget.TextView
 
 import java.util.ArrayList
 import android.Manifest.permission.READ_CONTACTS
+import android.content.ContentValues
 import android.content.Intent
 import android.util.Log
 import android.widget.Toast
@@ -31,9 +32,15 @@ import com.google.firebase.auth.AuthResult
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import evertonteotonio.com.br.orderofservice.R
+import evertonteotonio.com.br.orderofservice.database.helper.database
+import evertonteotonio.com.br.orderofservice.model.User
 
 import kotlinx.android.synthetic.main.activity_login.*
 import kotlinx.android.synthetic.main.activity_login.view.*
+import org.jetbrains.anko.db.classParser
+import org.jetbrains.anko.db.insert
+import org.jetbrains.anko.db.parseList
+import org.jetbrains.anko.db.select
 
 /**
  * Uma tela de login que oferece login via email/password.
@@ -218,8 +225,28 @@ class LoginController : AppCompatActivity(), LoaderCallbacks<Cursor> {
             if (action_cad.isChecked)
             {
 
+                val users = database.use {
+                    select(User.TABLE_NAME)
+                            .whereArgs(User.COLUMN_EMAIL + " = {email}", "email" to emailStr).exec{
+                                //parseList(classParser())
+                            }
+                }
+
+
+                var teste2 = 6
+//                database.use {
+//                    insert(User.TABLE_NAME,
+//                            User.COLUMN_NAME to nameStr,
+//                            User.COLUMN_EMAIL to emailStr,
+//                            User.COLUMN_PASSWORD to passwordStr)
+//                }
+
             }else{
+
+                showProgress(true)
                 signIn(emailStr, passwordStr)
+                showProgress(false)
+
                 if (currentUser != null) {
                     val intent = Intent(this@LoginController, MenuController::class.java)
                     startActivity(intent)
