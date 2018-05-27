@@ -16,9 +16,9 @@
     <string name="permission_rationale">"Permissões de contatos são necessárias."
     </string>
     <string name="title_activity_main_list_controller">MainListController</string>
-    <string name="title_home">Home</string>
+    <string name="title_home">Início</string>
     <string name="title_dashboard">Dashboard</string>
-    <string name="title_notifications">Notifications</string>
+    <string name="title_about">Sobre</string>
     <string name="title_activity_menu_controller">MenuController</string>
 
     <string name="action_cad">Cadastrar</string>

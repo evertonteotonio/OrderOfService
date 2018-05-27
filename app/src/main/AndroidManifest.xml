@@ -31,7 +31,8 @@
             android:name=".controller.MenuController"
             android:label="@string/title_activity_menu_controller" />
         <activity android:name=".controller.CadUSer" />
-        <activity android:name=".controller.CadUserController"></activity>
+        <activity android:name=".controller.CadUserController" />
+        <activity android:name=".controller.AboutController"></activity>
     </application>
 
 </manifest>

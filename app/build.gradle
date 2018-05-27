@@ -38,6 +38,9 @@ dependencies {
     implementation "com.google.firebase:firebase-auth:$google_version"
     implementation "com.google.android.gms:play-services-auth:$google_version"
     implementation 'com.android.support:support-vector-drawable:27.1.1'
+
+    // FlexboxLayout
+    implementation 'com.google.android:flexbox:1.0.0'
 }
 
 apply plugin: 'com.google.gms.google-services'

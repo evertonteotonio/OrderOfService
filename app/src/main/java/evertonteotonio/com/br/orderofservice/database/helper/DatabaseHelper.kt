@@ -2,7 +2,7 @@ package evertonteotonio.com.br.orderofservice.database.helper
 
 import android.content.Context
 import android.database.sqlite.SQLiteDatabase
-import evertonteotonio.com.br.orderofservice.database.schema.UserTable
+import evertonteotonio.com.br.orderofservice.model.User
 import org.jetbrains.anko.db.*
 
 class DatabaseHelper(ctx: Context) : ManagedSQLiteOpenHelper(ctx, "OrderServiceDatabase", null, 1) {
@@ -20,15 +20,15 @@ class DatabaseHelper(ctx: Context) : ManagedSQLiteOpenHelper(ctx, "OrderServiceD
 
     override fun onCreate(db: SQLiteDatabase) {
         // Aqui você cria tabelas
-        db.createTable(UserTable.TABLE_NAME, true,
-                UserTable.COLUMN_ID to INTEGER + PRIMARY_KEY + UNIQUE,
-                UserTable.COLUMN_NAME to TEXT,
-                UserTable.COLUMN_EMAIL to TEXT, UserTable.COLUMN_PASSWORD to TEXT)
+        db.createTable(User.TABLE_NAME, true,
+                User.COLUMN_ID to INTEGER + PRIMARY_KEY + UNIQUE,
+                User.COLUMN_NAME to TEXT,
+                User.COLUMN_EMAIL to TEXT, User.COLUMN_PASSWORD to TEXT)
     }
 
     override fun onUpgrade(db: SQLiteDatabase, oldVersion: Int, newVersion: Int) {
         // Aqui você pode atualizar tabelas, como de costume
-        db.dropTable(UserTable.TABLE_NAME.toString(), true)
+        db.dropTable(User.TABLE_NAME.toString(), true)
     }
 }
 

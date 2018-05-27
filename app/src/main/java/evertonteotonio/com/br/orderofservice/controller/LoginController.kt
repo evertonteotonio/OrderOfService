@@ -23,9 +23,7 @@ import android.widget.TextView
 
 import java.util.ArrayList
 import android.Manifest.permission.READ_CONTACTS
-import android.content.ContentValues
 import android.content.Intent
-import android.util.Log
 import android.widget.Toast
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.auth.AuthResult
@@ -36,11 +34,7 @@ import evertonteotonio.com.br.orderofservice.database.helper.database
 import evertonteotonio.com.br.orderofservice.model.User
 
 import kotlinx.android.synthetic.main.activity_login.*
-import kotlinx.android.synthetic.main.activity_login.view.*
-import org.jetbrains.anko.db.classParser
-import org.jetbrains.anko.db.insert
-import org.jetbrains.anko.db.parseList
-import org.jetbrains.anko.db.select
+import org.jetbrains.anko.db.*
 
 /**
  * Uma tela de login que oferece login via email/password.
@@ -111,12 +105,16 @@ class LoginController : AppCompatActivity(), LoaderCallbacks<Cursor> {
 
 
 
-//    override fun onStart() {
-//        super.onStart();
-//        // Verifique se o usuário está conectado (não nulo) e atualize a UI de acordo.
-//        var currentUser: FirebaseUser? = authOrderServiceFirebase?.getCurrentUser()
-//        //updateUI(currentUser);
-//    }
+    override fun onStart() {
+        super.onStart();
+        // Verifique se o usuário está conectado (não nulo) e atualize a UI de acordo.
+        //var currentUser: FirebaseUser? = authOrderServiceFirebase?.getCurrentUser()
+        if (currentUser != null) {
+            val intent = Intent(this@LoginController, MenuController::class.java)
+            startActivity(intent)
+            this@LoginController.finish()
+        }
+    }
 
     private fun populateAutoComplete() {
         if (!mayRequestContacts()) {
@@ -225,27 +223,35 @@ class LoginController : AppCompatActivity(), LoaderCallbacks<Cursor> {
             if (action_cad.isChecked)
             {
 
-                val users = database.use {
-                    select(User.TABLE_NAME)
-                            .whereArgs(User.COLUMN_EMAIL + " = {email}", "email" to emailStr).exec{
-                                //parseList(classParser())
+                database.use {
+                     select(User.TABLE_NAME)
+                            .whereArgs(User.COLUMN_EMAIL + " = {email}", "email" to emailStr)
+                            .limit(1).exec{
+
+                                User.UsersList = parseList(classParser<User>())
+                                User.TotalList = this.count
+
                             }
                 }
 
 
-                var teste2 = 6
-//                database.use {
-//                    insert(User.TABLE_NAME,
-//                            User.COLUMN_NAME to nameStr,
-//                            User.COLUMN_EMAIL to emailStr,
-//                            User.COLUMN_PASSWORD to passwordStr)
-//                }
+                if (User.TotalList == 0){
+                    database.use {
+                        insert(User.TABLE_NAME,
+                                User.COLUMN_NAME to nameStr,
+                                User.COLUMN_EMAIL to emailStr,
+                                User.COLUMN_PASSWORD to passwordStr)
+                    }
+                }
+                else {
+                    Toast.makeText(this, "Esse usuário já está cadastrado", Toast.LENGTH_SHORT).show()
+                }
 
             }else{
 
                 showProgress(true)
                 signIn(emailStr, passwordStr)
-                showProgress(false)
+                //showProgress(false)
 
                 if (currentUser != null) {
                     val intent = Intent(this@LoginController, MenuController::class.java)
@@ -363,19 +369,27 @@ class LoginController : AppCompatActivity(), LoaderCallbacks<Cursor> {
             try {
                 // Simule o acesso à rede.
                 signIn(mEmail, mPassword)
-                Thread.sleep(2000)
+                //Thread.sleep(2000)
+
+                var currentUser: FirebaseUser? = authOrderServiceFirebase?.getCurrentUser()
+                if (currentUser != null) {
+                    return true
+                }
+
             } catch (e: InterruptedException) {
                 return false
             }
 
-            return DUMMY_CREDENTIALS
-                    .map { it.split(":") }
-                    .firstOrNull { it[0] == mEmail }
-                    ?.let {
-                        // Conta existe, retornar verdadeiro se a senha corresponder.
-                        it[1] == mPassword
-                    }
-                    ?: true
+            return false
+
+//            return DUMMY_CREDENTIALS
+//                    .map { it.split(":") }
+//                    .firstOrNull { it[0] == mEmail }
+//                    ?.let {
+//                        // Conta existe, retornar verdadeiro se a senha corresponder.
+//                        it[1] == mPassword
+//                    }
+//                    ?: true
         }
 
         override fun onPostExecute(success: Boolean?) {
