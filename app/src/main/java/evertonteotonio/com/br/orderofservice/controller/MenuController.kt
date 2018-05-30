@@ -26,6 +26,7 @@ class MenuController : AppCompatActivity() {
                 val intent = Intent(this@MenuController, AboutController::class.java)
                 startActivity(intent)
                 this@MenuController.finish()
+                return@OnNavigationItemSelectedListener true
             }
         }
         false
