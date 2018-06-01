@@ -22,7 +22,7 @@ class DatabaseHelper(ctx: Context) : ManagedSQLiteOpenHelper(ctx, "OrderServiceD
 
         // Aqui você cria tabelas
         db.createTable(User.TABLE_NAME, true,
-                User.COLUMN_ID to INTEGER + PRIMARY_KEY + UNIQUE,
+                User.COLUMN_UUID to TEXT + PRIMARY_KEY + UNIQUE,
                 User.COLUMN_NAME to TEXT,
                 User.COLUMN_EMAIL to TEXT,
                 User.COLUMN_PASSWORD to TEXT,

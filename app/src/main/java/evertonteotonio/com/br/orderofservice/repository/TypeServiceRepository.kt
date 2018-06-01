@@ -4,6 +4,7 @@ import android.content.Context
 import evertonteotonio.com.br.orderofservice.database.helper.database
 import evertonteotonio.com.br.orderofservice.model.TypeService
 import org.jetbrains.anko.db.*
+import java.util.*
 
 class TypeServiceRepository(val context: Context)
 {
@@ -28,12 +29,12 @@ class TypeServiceRepository(val context: Context)
         return typeServiceList
     }
 
-    fun findById(id: Int) : List<TypeService>?
+    fun findById(uuid: UUID) : List<TypeService>?
     {
         context.database.use{
 
             select(TypeService.TABLE_NAME)
-                    .whereArgs(TypeService.COLUMN_ID + " = {id}", "id" to id)
+                    .whereArgs(TypeService.COLUMN_UUID + " = {id}", "id" to uuid)
                     .exec{
                     typeServiceList = parseList(classParser<TypeService>())
                     totalList = this.count
@@ -56,7 +57,7 @@ class TypeServiceRepository(val context: Context)
 
     fun delete(typeService: TypeService) = context.database.use {
         delete(TypeService.TABLE_NAME, whereClause = "id = {typeServiceId}",
-                args = "typeServiceId" to typeService.id)
+                args = "typeServiceId" to typeService.uuid)
     }
 
 

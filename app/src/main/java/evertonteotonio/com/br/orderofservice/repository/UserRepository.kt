@@ -15,12 +15,12 @@ class UserRepository(val context: Context)
         var usersList: List<User>? = null
     }
 
-    fun findById(id: Int) : List<User>?
+    fun findById(uuid: UUID) : List<User>?
     {
         context.database.use{
 
             select(User.TABLE_NAME)
-                    .whereArgs(User.COLUMN_ID + " = {id}", "id" to id)
+                    .whereArgs(User.COLUMN_UUID + " = {uuid}", "uuid" to uuid)
                     .exec{
                         usersList = parseList(classParser<User>())
                         totalList = this.count
@@ -47,10 +47,11 @@ class UserRepository(val context: Context)
         return usersList
     }
 
-    fun create(name: String, email: String, password: String){
+    fun create(uuid: String, name: String, email: String, password: String){
 
         context.database.use {
             insert(User.TABLE_NAME,
+                    User.COLUMN_UUID to uuid,
                     User.COLUMN_NAME to name,
                     User.COLUMN_EMAIL to email,
                     User.COLUMN_PASSWORD to password,
@@ -64,13 +65,13 @@ class UserRepository(val context: Context)
                 User.TABLE_NAME to user.name,
                 User.COLUMN_EMAIL to user.email,
                 User.COLUMN_PASSWORD to user.password)
-                .whereArgs(User.COLUMN_ID + " = {id}", "id" to user.id.toString().toLong())
+                .whereArgs(User.COLUMN_UUID + " = {uuid}", "uuid" to user.uuid.toString())
                 .exec()
     }
 
     fun delete(user: User) = context.database.use {
-        delete(TypeService.TABLE_NAME, whereClause = "id = {userId}",
-                args = "userId" to user.id.toString().toLong())
+        delete(TypeService.TABLE_NAME, whereClause = "uuid = {uuid}",
+                args = "uuid" to user.uuid.toString())
     }
 
 }

@@ -228,7 +228,8 @@ class LoginController : AppCompatActivity(), LoaderCallbacks<Cursor> {
             if (action_cad.isChecked)
             {
                 if (user?.size == 0){
-                    UserRepository(this).create(nameStr, emailStr, passwordStr)
+                    UserRepository(this).create(UUID.randomUUID().toString(),
+                            nameStr, emailStr, passwordStr)
                 }
                 else {
                     Toast.makeText(this, "Esse usuário já está cadastrado", Toast.LENGTH_SHORT).show()
