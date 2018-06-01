@@ -21,8 +21,8 @@ import android.view.inputmethod.EditorInfo
 import android.widget.ArrayAdapter
 import android.widget.TextView
 
-import java.util.ArrayList
 import android.Manifest.permission.READ_CONTACTS
+import android.content.Context
 import android.content.Intent
 import android.widget.Toast
 import com.google.android.gms.tasks.OnCompleteListener
@@ -32,9 +32,11 @@ import com.google.firebase.auth.FirebaseUser
 import evertonteotonio.com.br.orderofservice.R
 import evertonteotonio.com.br.orderofservice.database.helper.database
 import evertonteotonio.com.br.orderofservice.model.User
+import evertonteotonio.com.br.orderofservice.repository.UserRepository
 
 import kotlinx.android.synthetic.main.activity_login.*
 import org.jetbrains.anko.db.*
+import java.util.*
 
 /**
  * Uma tela de login que oferece login via email/password.
@@ -177,6 +179,8 @@ class LoginController : AppCompatActivity(), LoaderCallbacks<Cursor> {
         var cancel = false
         var focusView: View? = null
 
+        val user = UserRepository(this).findByEmail(emailStr)
+
         // Verifique se há uma senha válida, se o usuário digitou uma.
         if (TextUtils.isEmpty(passwordStr) && !isPasswordValid(passwordStr)) {
             password.error = getString(R.string.error_invalid_password)
@@ -220,28 +224,11 @@ class LoginController : AppCompatActivity(), LoaderCallbacks<Cursor> {
 //            mAuthTask = UserLoginTask(emailStr, passwordStr)
 //            mAuthTask!!.execute(null as Void?)
 
+
             if (action_cad.isChecked)
             {
-
-                database.use {
-                     select(User.TABLE_NAME)
-                            .whereArgs(User.COLUMN_EMAIL + " = {email}", "email" to emailStr)
-                            .limit(1).exec{
-
-                                User.UsersList = parseList(classParser<User>())
-                                User.TotalList = this.count
-
-                            }
-                }
-
-
-                if (User.TotalList == 0){
-                    database.use {
-                        insert(User.TABLE_NAME,
-                                User.COLUMN_NAME to nameStr,
-                                User.COLUMN_EMAIL to emailStr,
-                                User.COLUMN_PASSWORD to passwordStr)
-                    }
+                if (user?.size == 0){
+                    UserRepository(this).create(nameStr, emailStr, passwordStr)
                 }
                 else {
                     Toast.makeText(this, "Esse usuário já está cadastrado", Toast.LENGTH_SHORT).show()

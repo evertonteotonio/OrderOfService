@@ -51,7 +51,7 @@ class MainActivity : AppCompatActivity() {
         anim.reset()
 
         //Pegando o nosso objeto criado no layout
-        val iv = findViewById<View>(R.id.splash) as ImageView
+        val iv = findViewById<View>(R.id.imgLogo) as ImageView
         iv.clearAnimation()
         iv.startAnimation(anim)
 

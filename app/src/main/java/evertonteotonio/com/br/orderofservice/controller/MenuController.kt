@@ -67,4 +67,15 @@ class MenuController : AppCompatActivity() {
         val fragmentManager = supportFragmentManager
         fragmentManager.popBackStackImmediate(null, FragmentManager.POP_BACK_STACK_INCLUSIVE)
     }
+
+    fun createFragmentServiceOrder()
+    {
+        val transaction = fragmentMan.beginTransaction()
+        val fragment = AboutFragment()
+        transaction.replace(R.id.fragmentholder, fragment)
+        transaction.addToBackStack(null)
+        transaction.commit()
+    }
+
+
 }
