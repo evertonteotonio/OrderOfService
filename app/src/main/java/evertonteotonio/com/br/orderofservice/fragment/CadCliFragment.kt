@@ -52,9 +52,6 @@ class CadCliFragment : Fragment() {
         })
 
 
-
-
-
         return view
 
 

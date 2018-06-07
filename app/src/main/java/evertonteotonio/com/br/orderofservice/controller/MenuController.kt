@@ -80,14 +80,6 @@ class MenuController : AppCompatActivity(), ViewPager.OnPageChangeListener {
         val fragment = CadCliFragment()
         openFragment(fragment)
     }
-
-
-//    fun showHideFieldsContact(view: View)
-//    {
-//        val actionContactFields  = txtShowHideFieldsContact
-//    }
-
-
     override fun onPageScrollStateChanged(state: Int) {
 
     }
