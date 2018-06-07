@@ -34,12 +34,21 @@ class CadCliFragment : Fragment() {
 
         val view = inflater.inflate(R.layout.fragment_cad_cli, container, false)
 
-        val viewDataCli = view.txtShowHideFieldsContact
+        val viewDataCli = view.showHideFieldsContact
 
 
 
         viewDataCli.setOnClickListener(View.OnClickListener() {
             Log.i("Clik", "Foi clicado")
+
+            if (view.data_contact.visibility == View.INVISIBLE){
+                view.data_contact.setVisibility(View.VISIBLE)
+            } else {
+                view.data_contact.setVisibility(View.INVISIBLE)
+            }
+
+
+
         })
 
 
@@ -50,15 +59,5 @@ class CadCliFragment : Fragment() {
 
 
     }
-
-    fun showHideFieldsContact(view: View)
-    {
-        val actionContactFields  = txtShowHideFieldsContact
-    }
-
-    fun onClick(v: View) {
-        Log.i("ONCLIK", "Foi clicado")
-    }
-
 
 }
