@@ -8,8 +8,9 @@ import android.view.View
 import android.view.ViewGroup
 
 import evertonteotonio.com.br.orderofservice.R
+import kotlinx.android.synthetic.main.fragment_cad_cli.*
 
-// TODO: Rename parameter arguments, choose names that match
+// TODO: Renomear argumentos do parâmetro, escolher nomes que correspondam
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
 private const val ARG_PARAM1 = "param1"
 private const val ARG_PARAM2 = "param2"
@@ -24,6 +25,11 @@ class CadCliFragment : Fragment() {
                               savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_cad_cli, container, false)
+    }
+
+    fun showHideFieldsContact(view: View)
+    {
+        val actionContactFields  = txtShowHideFieldsContact
     }
 
 

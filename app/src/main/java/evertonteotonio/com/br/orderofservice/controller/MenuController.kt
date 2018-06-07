@@ -1,15 +1,18 @@
 package evertonteotonio.com.br.orderofservice.controller
 
-import android.content.Intent
 import android.os.Bundle
 import android.support.design.widget.BottomNavigationView
+import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentManager
+import android.support.v4.view.ViewPager
 import android.support.v7.app.AppCompatActivity
 import evertonteotonio.com.br.orderofservice.R
 import evertonteotonio.com.br.orderofservice.fragment.AboutFragment
 import kotlinx.android.synthetic.main.activity_menu_controller.*
+import evertonteotonio.com.br.orderofservice.fragment.CadCliFragment
 
-class MenuController : AppCompatActivity() {
+
+class MenuController : AppCompatActivity(), ViewPager.OnPageChangeListener {
 
     val fragmentMan = supportFragmentManager
 
@@ -23,11 +26,12 @@ class MenuController : AppCompatActivity() {
 
         when (item.itemId) {
             R.id.navigation_home -> {
-                message.setText(R.string.title_home)
+                //message.setText(R.string.title_home)
                 return@OnNavigationItemSelectedListener true
             }
-            R.id.navigation_dashboard -> {
-                message.setText(R.string.title_dashboard)
+            R.id.navigation_new_service -> {
+                //message.setText(R.string.title_dashboard)
+                createFragmentServiceOrder()
                 return@OnNavigationItemSelectedListener true
             }
             R.id.navigation_about -> {
@@ -49,14 +53,17 @@ class MenuController : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_menu_controller)
-
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener)
     }
 
     fun createFragmentAbout()
     {
-        val transaction = fragmentMan.beginTransaction()
-        val fragment = AboutFragment()
+        val aboutFragment = AboutFragment()
+        openFragment(aboutFragment)
+    }
+
+    private fun openFragment(fragment: Fragment) {
+        val transaction = supportFragmentManager.beginTransaction()
         transaction.replace(R.id.fragmentholder, fragment)
         transaction.addToBackStack(null)
         transaction.commit()
@@ -70,11 +77,27 @@ class MenuController : AppCompatActivity() {
 
     fun createFragmentServiceOrder()
     {
-        val transaction = fragmentMan.beginTransaction()
-        val fragment = AboutFragment()
-        transaction.replace(R.id.fragmentholder, fragment)
-        transaction.addToBackStack(null)
-        transaction.commit()
+        val fragment = CadCliFragment()
+        openFragment(fragment)
+    }
+
+
+//    fun showHideFieldsContact(view: View)
+//    {
+//        val actionContactFields  = txtShowHideFieldsContact
+//    }
+
+
+    override fun onPageScrollStateChanged(state: Int) {
+
+    }
+
+    override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {
+
+    }
+
+    override fun onPageSelected(position: Int) {
+
     }
 
 

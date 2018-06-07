@@ -17,18 +17,21 @@
     </string>
     <string name="title_activity_main_list_controller">MainListController</string>
     <string name="title_home">Serviços</string>
-    <string name="title_dashboard">Novo Serviço</string>
+    <string name="title_new_service">Novo Serviço</string>
     <string name="title_about">Sobre</string>
     <string name="title_activity_menu_controller">MenuController</string>
 
     <string name="action_cad">Cadastrar</string>
-    <string name="name_cli">Nome</string>
-    <string name="email_cli">Email</string>
-    <string name="cellPhone_cli">Celular</string>
-    <string name="phone_cli">Telefone</string>
+    <string name="name_requester">Nome do Solicitante</string>
+    <string name="email_cli">Email do solicitante</string>
+    <string name="cellPhone_cli">Celular do solicitante</string>
+    <string name="phone_cli">Telefone do solicitante</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="descri_task">Descrição da Tarefa</string>
+    <string name="address_task">Endereço da tarefa</string>
+    <string name="save">Salvar</string>
 
 
 </resources>

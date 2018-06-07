@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string-array name="planets_array">
-        <item>Orçamento</item>
-        <item>Manutenção</item>
+        <item>Novo orçamento</item>
+        <item>Nova manutenção</item>
+        <item>Nova instalação</item>
+        <item>Retorno</item>
     </string-array>
 </resources>

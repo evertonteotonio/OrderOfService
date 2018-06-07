@@ -230,6 +230,10 @@ class LoginController : AppCompatActivity(), LoaderCallbacks<Cursor> {
                 if (user?.size == 0){
                     UserRepository(this).create(UUID.randomUUID().toString(),
                             nameStr, emailStr, passwordStr)
+
+                    //Autenticando
+                    showProgress(true)
+                    signIn(emailStr, passwordStr)
                 }
                 else {
                     Toast.makeText(this, "Esse usuário já está cadastrado", Toast.LENGTH_SHORT).show()

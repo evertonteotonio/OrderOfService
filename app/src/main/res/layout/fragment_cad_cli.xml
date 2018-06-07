@@ -3,18 +3,33 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".fragment.CadCliFragment">
+    tools:context=".fragment.CadCliFragment" android:maxHeight="100dp">
+
+    <TextView
+        android:id="@+id/txtShowHideFieldsContact"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:text="Dados de contato"
+        android:autoLink="all"
+        android:linksClickable="true"
+        android:textColor="@color/colorPrimary"
+        android:textStyle="italic"
+        android:onClick="showHideFieldsContact"
+        tools:ignore="OnClick"
+        tools:context=".fragment.CadCliFragment"/>
 
     <LinearLayout
-        android:id="@+id/email_login_form"
+        android:id="@+id/data_contact"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
         android:paddingBottom="10dp"
-        android:paddingTop="10dp"
-        android:layout_marginTop="25dp">
+        android:layout_marginTop="25dp"
+        android:minHeight="450dp">
 
         <android.support.design.widget.TextInputLayout
             android:layout_width="match_parent"
@@ -25,7 +40,7 @@
                 android:id="@+id/nameCli"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="@string/name_cli"
+                android:hint="@string/name_requester"
                 android:inputType="text"
                 android:maxLines="1"
                 android:singleLine="true" />
@@ -42,7 +57,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/email_cli"
-                android:inputType="text"
+                android:inputType="textEmailAddress"
                 android:maxLines="1"
                 android:singleLine="true" />
 
@@ -58,7 +73,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/cellPhone_cli"
-                android:inputType="text"
+                android:inputType="phone"
                 android:maxLines="1"
                 android:singleLine="true" />
 
@@ -74,35 +89,49 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/phone_cli"
-                android:inputType="text"
+                android:inputType="phone"
                 android:maxLines="1"
                 android:singleLine="true" />
 
         </android.support.design.widget.TextInputLayout>
 
 
+        <!-- EditText de descrição -->
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/lbDescription">
+
+            <ScrollView
+                android:layout_width="fill_parent"
+                android:layout_height="100dip">
+
+                <EditText
+                    android:id="@+id/description"
+                    android:layout_height="wrap_content"
+                    android:layout_width="fill_parent"
+                    android:hint="@string/descri_task"
+                    android:inputType="textMultiLine"
+                    android:maxLines="20"
+                    android:scrollbars="vertical"
+                    />
+            </ScrollView>
+
+        </android.support.design.widget.TextInputLayout>
+
+        <!-- Botão de salvar -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
 
             <Button
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:text="Obter da agenda"/>
-
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:text="Cadastrar"/>
-
-
+                android:id="@+id/btnSaveCli"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/save" />
         </LinearLayout>
 
-
     </LinearLayout>
-
-
-
 
 </FrameLayout>

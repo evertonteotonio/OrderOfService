@@ -6,6 +6,7 @@
     <uses-permission android:name="android.permission.GET_ACCOUNTS" />
     <uses-permission android:name="android.permission.READ_PROFILE" />
     <uses-permission android:name="android.permission.READ_CONTACTS" />
+    <uses-permission android:name="android.permission.INTERNET"/>
 
     <application
         android:allowBackup="true"
@@ -25,13 +26,8 @@
             android:name=".controller.LoginController"
             android:label="@string/title_activity_login" />
         <activity
-            android:name=".controller.MainListController"
-            android:label="@string/title_activity_main_list_controller" />
-        <activity
             android:name=".controller.MenuController"
             android:label="@string/title_activity_menu_controller" />
-        <activity android:name=".controller.CadUSer" />
-        <activity android:name=".controller.CadUserController" />
         <activity android:name=".controller.AboutController"></activity>
     </application>
 
