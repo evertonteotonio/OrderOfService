@@ -15,10 +15,7 @@
         android:autoLink="all"
         android:linksClickable="true"
         android:textColor="@color/colorPrimary"
-        android:textStyle="italic"
-        android:onClick="showHideFieldsContact"
-        tools:ignore="OnClick"
-        tools:context=".fragment.CadCliFragment"/>
+        android:textStyle="italic" />
 
     <LinearLayout
         android:id="@+id/data_contact"

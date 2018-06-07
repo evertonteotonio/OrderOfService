@@ -1,14 +1,20 @@
 package evertonteotonio.com.br.orderofservice.fragment
 
 
+import android.database.DatabaseUtils
 import android.os.Bundle
 import android.support.v4.app.Fragment
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 
 import evertonteotonio.com.br.orderofservice.R
 import kotlinx.android.synthetic.main.fragment_cad_cli.*
+import android.R.attr.fragment
+import android.R.attr.onClick
+import kotlinx.android.synthetic.main.fragment_cad_cli.view.*
+
 
 // TODO: Renomear argumentos do parâmetro, escolher nomes que correspondam
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -24,12 +30,34 @@ class CadCliFragment : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_cad_cli, container, false)
+
+
+        val view = inflater.inflate(R.layout.fragment_cad_cli, container, false)
+
+        val viewDataCli = view.txtShowHideFieldsContact
+
+
+
+        viewDataCli.setOnClickListener(View.OnClickListener() {
+            Log.i("Clik", "Foi clicado")
+        })
+
+
+
+
+
+        return view
+
+
     }
 
     fun showHideFieldsContact(view: View)
     {
         val actionContactFields  = txtShowHideFieldsContact
+    }
+
+    fun onClick(v: View) {
+        Log.i("ONCLIK", "Foi clicado")
     }
 
 
