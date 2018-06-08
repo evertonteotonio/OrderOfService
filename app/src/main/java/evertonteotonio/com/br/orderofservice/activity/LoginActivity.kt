@@ -108,7 +108,7 @@ class LoginActivity : AppCompatActivity(), LoaderCallbacks<Cursor> {
         // Verifique se o usuário está conectado (não nulo) e atualize a UI de acordo.
         //var currentUser: FirebaseUser? = authOrderServiceFirebase?.getCurrentUser()
         if (currentUser != null) {
-            val intent = Intent(this@LoginActivity, MenuActivity::class.java)
+            val intent = Intent(this@LoginActivity, OrderListActivity::class.java)
             startActivity(intent)
             this@LoginActivity.finish()
         }
@@ -242,7 +242,7 @@ class LoginActivity : AppCompatActivity(), LoaderCallbacks<Cursor> {
                 //showProgress(false)
 
                 if (currentUser != null) {
-                    val intent = Intent(this@LoginActivity, MenuActivity::class.java)
+                    val intent = Intent(this@LoginActivity, OrderListActivity::class.java)
                     startActivity(intent)
                     this@LoginActivity.finish()
                 }

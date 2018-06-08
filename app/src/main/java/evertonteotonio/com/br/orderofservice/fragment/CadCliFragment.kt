@@ -44,10 +44,10 @@ class CadCliFragment : Fragment() {
 
         btnSaveCli.setOnClickListener(View.OnClickListener() {
 
-            val nameCli = view.nameCli
-            val emailCli = view.emailCli
-            val cellPhone = view.cellPhone
-            val phoneCli = view.phoneCli
+//            val nameCli = view.nameCli
+//            val emailCli = view.emailCli
+//            val cellPhone = view.cellPhone
+//            val phoneCli = view.phoneCli
 
 //            ClientRepository(this).create(
 //                    UUID.randomUUID().toString(),

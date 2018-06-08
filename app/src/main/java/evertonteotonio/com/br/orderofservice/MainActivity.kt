@@ -11,6 +11,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import evertonteotonio.com.br.orderofservice.activity.LoginActivity
 import evertonteotonio.com.br.orderofservice.activity.MenuActivity
+import evertonteotonio.com.br.orderofservice.activity.OrderListActivity
 
 class MainActivity : AppCompatActivity() {
 
@@ -39,7 +40,7 @@ class MainActivity : AppCompatActivity() {
 
 
         if (currentUser != null) {
-            val intent = Intent(this@MainActivity, MenuActivity::class.java)
+            val intent = Intent(this@MainActivity, OrderListActivity::class.java)
             startActivity(intent)
             this@MainActivity.finish()
         }

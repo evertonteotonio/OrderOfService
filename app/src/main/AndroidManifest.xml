@@ -26,9 +26,11 @@
             android:name=".activity.LoginActivity"
             android:label="@string/title_activity_login" />
         <activity
-            android:name=".activity.MenuActivity"
+            android:name=".activity.OrderListActivity"
             android:label="@string/title_activity_menu_controller" />
         <activity android:name=".activity.AboutActivity" />
+        <!-- <activity android:name=".activity.OrderListActivity"></activity> -->
+        <activity android:name=".activity.OrderServiceActivity"></activity>
     </application>
 
 </manifest>
