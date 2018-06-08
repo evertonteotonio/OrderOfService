@@ -23,12 +23,12 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".controller.LoginActivity"
+            android:name=".activity.LoginActivity"
             android:label="@string/title_activity_login" />
         <activity
-            android:name=".controller.MenuActivity"
+            android:name=".activity.MenuActivity"
             android:label="@string/title_activity_menu_controller" />
-        <activity android:name=".controller.AboutActivity" />
+        <activity android:name=".activity.AboutActivity" />
     </application>
 
 </manifest>

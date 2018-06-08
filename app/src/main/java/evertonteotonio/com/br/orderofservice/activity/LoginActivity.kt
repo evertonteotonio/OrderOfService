@@ -1,4 +1,4 @@
-package evertonteotonio.com.br.orderofservice.controller
+package evertonteotonio.com.br.orderofservice.activity
 
 import android.animation.Animator
 import android.animation.AnimatorListenerAdapter

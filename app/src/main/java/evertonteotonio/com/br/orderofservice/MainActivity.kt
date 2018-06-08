@@ -9,8 +9,8 @@ import android.view.animation.AnimationUtils
 import android.widget.ImageView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
-import evertonteotonio.com.br.orderofservice.controller.LoginActivity
-import evertonteotonio.com.br.orderofservice.controller.MenuActivity
+import evertonteotonio.com.br.orderofservice.activity.LoginActivity
+import evertonteotonio.com.br.orderofservice.activity.MenuActivity
 
 class MainActivity : AppCompatActivity() {
 
