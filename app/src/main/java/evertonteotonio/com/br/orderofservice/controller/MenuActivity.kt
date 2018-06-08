@@ -1,5 +1,6 @@
 package evertonteotonio.com.br.orderofservice.controller
 
+import android.content.Intent
 import android.os.Bundle
 import android.support.design.widget.BottomNavigationView
 import android.support.v4.app.Fragment
@@ -12,16 +13,13 @@ import kotlinx.android.synthetic.main.activity_menu_controller.*
 import evertonteotonio.com.br.orderofservice.fragment.CadCliFragment
 
 
-class MenuController : AppCompatActivity(), ViewPager.OnPageChangeListener {
+class MenuActivity : AppCompatActivity(){
 
     val fragmentMan = supportFragmentManager
 
     private val mOnNavigationItemSelectedListener = BottomNavigationView.OnNavigationItemSelectedListener { item ->
 
         //Limpando os fragments
-        //val fragmentManager = supportFragmentManager
-        //fragmentManager.popBackStackImmediate(null, FragmentManager.POP_BACK_STACK_INCLUSIVE)
-
         clearFragments()
 
         when (item.itemId) {
@@ -37,10 +35,10 @@ class MenuController : AppCompatActivity(), ViewPager.OnPageChangeListener {
             R.id.navigation_about -> {
 //                message.setText(R.string.title_about)
 //                return@OnNavigationItemSelectedListener true
-
-                //val intent = Intent(this@MenuController, AboutController::class.java)
-                //startActivity(intent)
-                //this@MenuController.finish()
+//
+//                val intent = Intent(this@MenuController, AboutController::class.java)
+//                startActivity(intent)
+//                this@MenuController.finish()
 
                 //message.setText(R.string.title_about)
                 createFragmentAbout()
@@ -80,17 +78,4 @@ class MenuController : AppCompatActivity(), ViewPager.OnPageChangeListener {
         val fragment = CadCliFragment()
         openFragment(fragment)
     }
-    override fun onPageScrollStateChanged(state: Int) {
-
-    }
-
-    override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {
-
-    }
-
-    override fun onPageSelected(position: Int) {
-
-    }
-
-
 }

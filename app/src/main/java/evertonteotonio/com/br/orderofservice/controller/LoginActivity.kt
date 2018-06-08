@@ -22,7 +22,6 @@ import android.widget.ArrayAdapter
 import android.widget.TextView
 
 import android.Manifest.permission.READ_CONTACTS
-import android.content.Context
 import android.content.Intent
 import android.widget.Toast
 import com.google.android.gms.tasks.OnCompleteListener
@@ -30,18 +29,15 @@ import com.google.firebase.auth.AuthResult
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import evertonteotonio.com.br.orderofservice.R
-import evertonteotonio.com.br.orderofservice.database.helper.database
-import evertonteotonio.com.br.orderofservice.model.User
 import evertonteotonio.com.br.orderofservice.repository.UserRepository
 
 import kotlinx.android.synthetic.main.activity_login.*
-import org.jetbrains.anko.db.*
 import java.util.*
 
 /**
  * Uma tela de login que oferece login via email/password.
  */
-class LoginController : AppCompatActivity(), LoaderCallbacks<Cursor> {
+class LoginActivity : AppCompatActivity(), LoaderCallbacks<Cursor> {
     /**
      * Mantenha o controle da tarefa de login para garantir que possamos cancelá-la se solicitado.
      */
@@ -60,7 +56,7 @@ class LoginController : AppCompatActivity(), LoaderCallbacks<Cursor> {
         authOrderServiceFirebase.signInWithEmailAndPassword(email, password).addOnCompleteListener(this, OnCompleteListener<AuthResult> { task ->
 
             if(task.isSuccessful){
-                var intent = Intent(this, LoginController::class.java)
+                var intent = Intent(this, LoginActivity::class.java)
                 intent.putExtra("id", authOrderServiceFirebase.currentUser?.email)
                 startActivity(intent)
                 //Toast.makeText(this, "sucesso na autenticação", Toast.LENGTH_SHORT).show()
@@ -112,9 +108,9 @@ class LoginController : AppCompatActivity(), LoaderCallbacks<Cursor> {
         // Verifique se o usuário está conectado (não nulo) e atualize a UI de acordo.
         //var currentUser: FirebaseUser? = authOrderServiceFirebase?.getCurrentUser()
         if (currentUser != null) {
-            val intent = Intent(this@LoginController, MenuController::class.java)
+            val intent = Intent(this@LoginActivity, MenuActivity::class.java)
             startActivity(intent)
-            this@LoginController.finish()
+            this@LoginActivity.finish()
         }
     }
 
@@ -246,9 +242,9 @@ class LoginController : AppCompatActivity(), LoaderCallbacks<Cursor> {
                 //showProgress(false)
 
                 if (currentUser != null) {
-                    val intent = Intent(this@LoginController, MenuController::class.java)
+                    val intent = Intent(this@LoginActivity, MenuActivity::class.java)
                     startActivity(intent)
-                    this@LoginController.finish()
+                    this@LoginActivity.finish()
                 }
             }
 
@@ -336,7 +332,7 @@ class LoginController : AppCompatActivity(), LoaderCallbacks<Cursor> {
 
     private fun addEmailsToAutoComplete(emailAddressCollection: List<String>) {
         //Crie o adaptador para informar ao AutoCompleteTextView o que mostrar em sua lista suspensa.
-        val adapter = ArrayAdapter(this@LoginController,
+        val adapter = ArrayAdapter(this@LoginActivity,
                 android.R.layout.simple_dropdown_item_1line, emailAddressCollection)
 
         email.setAdapter(adapter)

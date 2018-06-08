@@ -9,8 +9,8 @@ import android.view.animation.AnimationUtils
 import android.widget.ImageView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
-import evertonteotonio.com.br.orderofservice.controller.LoginController
-import evertonteotonio.com.br.orderofservice.controller.MenuController
+import evertonteotonio.com.br.orderofservice.controller.LoginActivity
+import evertonteotonio.com.br.orderofservice.controller.MenuActivity
 
 class MainActivity : AppCompatActivity() {
 
@@ -39,7 +39,7 @@ class MainActivity : AppCompatActivity() {
 
 
         if (currentUser != null) {
-            val intent = Intent(this@MainActivity, MenuController::class.java)
+            val intent = Intent(this@MainActivity, MenuActivity::class.java)
             startActivity(intent)
             this@MainActivity.finish()
         }
@@ -57,7 +57,7 @@ class MainActivity : AppCompatActivity() {
 
         Handler().postDelayed(Runnable {
             // Após o tempo definido irá executar a próxima tela
-            val intent = Intent(this@MainActivity, LoginController::class.java)
+            val intent = Intent(this@MainActivity, LoginActivity::class.java)
             intent.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION)
             startActivity(intent)
             this@MainActivity.finish()

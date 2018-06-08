@@ -4,16 +4,13 @@ package evertonteotonio.com.br.orderofservice.fragment
 import android.database.DatabaseUtils
 import android.os.Bundle
 import android.support.v4.app.Fragment
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 
 import evertonteotonio.com.br.orderofservice.R
-import kotlinx.android.synthetic.main.fragment_cad_cli.*
-import android.R.attr.fragment
-import android.R.attr.onClick
 import kotlinx.android.synthetic.main.fragment_cad_cli.view.*
+import java.util.*
 
 
 // TODO: Renomear argumentos do parâmetro, escolher nomes que correspondam
@@ -31,30 +28,44 @@ class CadCliFragment : Fragment() {
                               savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
 
-
         val view = inflater.inflate(R.layout.fragment_cad_cli, container, false)
-
         val viewDataCli = view.showHideFieldsContact
 
-
-
         viewDataCli.setOnClickListener(View.OnClickListener() {
-            Log.i("Clik", "Foi clicado")
 
-            if (view.data_contact.visibility == View.INVISIBLE){
-                view.data_contact.setVisibility(View.VISIBLE)
+            if (view.dataContact.visibility == View.INVISIBLE){
+                view.dataContact.setVisibility(View.VISIBLE)
             } else {
-                view.data_contact.setVisibility(View.INVISIBLE)
+                view.dataContact.setVisibility(View.INVISIBLE)
             }
+        })
+
+        val btnSaveCli = view.btnSaveCli
+
+        btnSaveCli.setOnClickListener(View.OnClickListener() {
+
+            val nameCli = view.nameCli
+            val emailCli = view.emailCli
+            val cellPhone = view.cellPhone
+            val phoneCli = view.phoneCli
+
+//            ClientRepository(this).create(
+//                    UUID.randomUUID().toString(),
+//                    nameCli.toString(),
+//                    emailCli.toString(),
+//                    cellPhone.toString(),
+//                    phoneCli.toString()
+//            )
+
+
 
 
 
         })
 
 
+
         return view
-
-
     }
 
 }

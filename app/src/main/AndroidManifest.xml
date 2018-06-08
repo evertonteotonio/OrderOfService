@@ -6,7 +6,7 @@
     <uses-permission android:name="android.permission.GET_ACCOUNTS" />
     <uses-permission android:name="android.permission.READ_PROFILE" />
     <uses-permission android:name="android.permission.READ_CONTACTS" />
-    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:allowBackup="true"
@@ -23,12 +23,12 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".controller.LoginController"
+            android:name=".controller.LoginActivity"
             android:label="@string/title_activity_login" />
         <activity
-            android:name=".controller.MenuController"
+            android:name=".controller.MenuActivity"
             android:label="@string/title_activity_menu_controller" />
-        <activity android:name=".controller.AboutController"></activity>
+        <activity android:name=".controller.AboutActivity" />
     </application>
 
 </manifest>

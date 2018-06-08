@@ -4,25 +4,25 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".fragment.CadCliFragment" android:maxHeight="100dp">
+    tools:context=".fragment.CadCliFragment">
 
     <ImageButton
         android:id="@+id/showHideFieldsContact"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="35dp"
+        android:layout_height="35dp"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:text="Dados de contato"
-        android:autoLink="all"
-        android:linksClickable="true"
-        android:paddingTop="10dp"
         android:layout_marginLeft="15dp"
-        android:maxWidth="5dp"
+        android:autoLink="all"
+        android:background="@mipmap/ic_contact"
+        android:linksClickable="true"
         android:maxHeight="5dp"
-        android:background="@mipmap/ic_contact" />
+        android:maxWidth="5dp"
+        android:layout_marginTop="12dp"
+        android:text="Dados de contato" />
 
     <LinearLayout
-        android:id="@+id/data_contact"
+        android:id="@+id/dataContact"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
