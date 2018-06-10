@@ -13,9 +13,10 @@ class ClientRepository(val context: Context)
         var usersList: List<Client>? = null
     }
 
-    fun create(uuid: String, name: String, email: String, cellPhone: String, phone: String){
+    fun create(uuid: String, name: String,
+               email: String, cellPhone: String, phone: String) : Boolean{
 
-        context.database.use {
+        var totalList = context.database.use {
             insert(Client.TABLE_NAME,
                     Client.COLUMN_UUID to uuid,
                     Client.COLUMN_NAME to name,
@@ -25,6 +26,10 @@ class ClientRepository(val context: Context)
                     Client.COLUMN_CREATED_AT to Date().toString()
             )
         }
+        if (totalList == -1L){
+            return false
+        }
+        return true
     }
 
 

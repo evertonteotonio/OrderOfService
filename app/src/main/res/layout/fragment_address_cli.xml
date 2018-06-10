@@ -5,10 +5,28 @@
     android:layout_height="match_parent"
     tools:context=".fragment.AddressCliFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+
+
+    <LinearLayout
+        android:id="@+id/dataContact"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="Endereço do cliente" />
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:minHeight="450dp"
+        android:layout_marginTop="65dp"
+        >
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Aqui fica od dados do endereço"/>
+
+
+    </LinearLayout>
+
+
+
 
 </FrameLayout>

@@ -29,42 +29,16 @@ class CadCliFragment : Fragment() {
         // Inflate the layout for this fragment
 
         val view = inflater.inflate(R.layout.fragment_cad_cli, container, false)
-        val viewDataCli = view.showHideFieldsContact
-
-        viewDataCli.setOnClickListener(View.OnClickListener() {
-
-            if (view.dataContact.visibility == View.INVISIBLE){
-                view.dataContact.setVisibility(View.VISIBLE)
-            } else {
-                view.dataContact.setVisibility(View.INVISIBLE)
-            }
-        })
-
-        val btnSaveCli = view.btnSaveCli
-
-        btnSaveCli.setOnClickListener(View.OnClickListener() {
-
-//            val nameCli = view.nameCli
-//            val emailCli = view.emailCli
-//            val cellPhone = view.cellPhone
-//            val phoneCli = view.phoneCli
-
-//            ClientRepository(this).create(
-//                    UUID.randomUUID().toString(),
-//                    nameCli.toString(),
-//                    emailCli.toString(),
-//                    cellPhone.toString(),
-//                    phoneCli.toString()
-//            )
-
-
-
-
-
-        })
-
-
-
+//        val viewDataCli = view.showHideFieldsContact
+//
+//        viewDataCli.setOnClickListener(View.OnClickListener() {
+//
+//            if (view.dataContact.visibility == View.INVISIBLE){
+//                view.dataContact.setVisibility(View.VISIBLE)
+//            } else {
+//                view.dataContact.setVisibility(View.INVISIBLE)
+//            }
+//        })
         return view
     }
 

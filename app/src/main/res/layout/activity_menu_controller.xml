@@ -5,19 +5,7 @@
     android:id="@+id/container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activity.MenuController">
-
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/fragmentholder"
-        android:orientation="vertical"></LinearLayout>
-
-    </ScrollView>
+    tools:context=".activity.MenuActivity">
 
 
     <android.support.design.widget.BottomNavigationView
