@@ -22,6 +22,8 @@
     <string name="title_activity_menu_controller">MenuController</string>
     <string name="title_contact">Contato</string>
     <string name="title_address">Endereço</string>
+    <string name="title_save">Salvar</string>
+    <string name="title_task">Tarefa</string>
 
     <string name="action_cad">Cadastrar</string>
     <string name="name_requester">Nome do Solicitante</string>

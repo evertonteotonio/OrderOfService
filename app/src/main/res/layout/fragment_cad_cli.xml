@@ -37,7 +37,8 @@
 
         <android.support.design.widget.TextInputLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:id="@+id/lbEmailCli">
 
             <EditText
                 android:id="@+id/emailCli"
@@ -52,7 +53,8 @@
 
         <android.support.design.widget.TextInputLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:id="@+id/lbCellPhone">
 
             <EditText
                 android:id="@+id/cellPhone"
@@ -67,7 +69,8 @@
 
         <android.support.design.widget.TextInputLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:id="@+id/lbPhoneCli">
 
             <EditText
                 android:id="@+id/phoneCli"
@@ -79,38 +82,6 @@
                 android:singleLine="true" />
 
         </android.support.design.widget.TextInputLayout>
-
-        <!-- EditText de descrição -->
-        <android.support.design.widget.TextInputLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/lbDescription">
-
-            <ScrollView
-                android:layout_width="fill_parent"
-                android:layout_height="100dip">
-
-                <EditText
-                    android:id="@+id/description"
-                    android:layout_height="wrap_content"
-                    android:layout_width="fill_parent"
-                    android:hint="@string/descri_task"
-                    android:inputType="textMultiLine"
-                    android:maxLines="20"
-                    android:scrollbars="vertical"
-                    />
-            </ScrollView>
-
-        </android.support.design.widget.TextInputLayout>
-
-        <Button
-            android:id="@+id/btnSaveCli"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/save"
-            android:onClick="saveDataClient"
-            tools:ignore="OnClick" />
-
 
     </LinearLayout>
 

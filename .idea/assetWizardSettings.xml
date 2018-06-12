@@ -19,8 +19,8 @@
                                   <option name="values">
                                     <map>
                                       <entry key="assetType" value="IMAGE" />
-                                      <entry key="imageAsset" value="C:\Users\Everton\Desktop\imagens trabalho android\businessman.png" />
-                                      <entry key="outputName" value="ic_action_client" />
+                                      <entry key="imageAsset" value="C:\Users\Everton\Desktop\imagens trabalho android\tasks.png" />
+                                      <entry key="outputName" value="ic_action_task" />
                                     </map>
                                   </option>
                                 </PersistentState>

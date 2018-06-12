@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".fragment.TaskFragment">
+
+
+
+    <LinearLayout
+        android:id="@+id/dataTask"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:minHeight="200dp"
+        android:layout_marginTop="65dp"
+        >
+
+        <!-- EditText de descrição -->
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/lbDescription">
+
+            <ScrollView
+                android:layout_width="fill_parent"
+                android:layout_height="200dip"
+                android:minHeight="200dip">
+
+                <EditText
+                    android:id="@+id/description"
+                    android:layout_height="wrap_content"
+                    android:layout_width="fill_parent"
+                    android:hint="@string/descri_task"
+                    android:inputType="textMultiLine"
+                    android:maxLines="30"
+                    android:minHeight="150dip"
+                    android:scrollbars="vertical"
+                    />
+            </ScrollView>
+
+        </android.support.design.widget.TextInputLayout>
+
+    </LinearLayout>
+
+
+</FrameLayout>

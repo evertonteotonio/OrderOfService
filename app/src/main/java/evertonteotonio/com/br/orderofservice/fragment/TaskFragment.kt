@@ -9,18 +9,17 @@ import android.view.ViewGroup
 
 import evertonteotonio.com.br.orderofservice.R
 
-
 /**
  * A simple [Fragment] subclass.
  *
  */
-class CadCliFragment : Fragment() {
+class TaskFragment : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
-
-        return inflater.inflate(R.layout.fragment_cad_cli, container, false)
+        return inflater.inflate(R.layout.fragment_task, container, false)
     }
+
 
 }

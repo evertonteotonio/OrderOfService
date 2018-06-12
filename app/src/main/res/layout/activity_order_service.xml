@@ -8,7 +8,7 @@
 
 
 
-        <android.support.design.widget.NavigationView
+        <android.support.design.widget.BottomNavigationView
             android:id="@+id/navigation_menu_cad_cli"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

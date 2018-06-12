@@ -11,5 +11,15 @@
         android:icon="@drawable/ic_action_address"
         android:title="@string/title_address" />
 
+    <item
+        android:id="@+id/navigation_task"
+        android:icon="@drawable/ic_action_task"
+        android:title="@string/title_task" />
+
+    <item
+        android:id="@+id/navigation_save"
+        android:icon="@drawable/ic_action_save"
+        android:title="@string/title_save" />
+
 
 </menu>
