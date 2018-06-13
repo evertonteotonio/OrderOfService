@@ -5,13 +5,15 @@ import android.support.v4.app.FragmentManager
 import android.os.Bundle
 import android.support.design.widget.BottomNavigationView
 import android.view.View
+import android.widget.LinearLayout
 import evertonteotonio.com.br.orderofservice.R
 import evertonteotonio.com.br.orderofservice.fragment.*
 import evertonteotonio.com.br.orderofservice.repository.ClientRepository
 import kotlinx.android.synthetic.main.activity_order_service.*
 import kotlinx.android.synthetic.main.fragment_address_cli.*
 import kotlinx.android.synthetic.main.fragment_cad_cli.*
-import org.jetbrains.anko.toast
+import kotlinx.android.synthetic.main.fragment_save.*
+import kotlinx.android.synthetic.main.fragment_task.*
 import java.util.*
 
 class OrderServiceActivity : MenuActivity() {
@@ -27,24 +29,49 @@ class OrderServiceActivity : MenuActivity() {
 
     private val mOnNavigationItemSelectedListener = BottomNavigationView.OnNavigationItemSelectedListener { item ->
 
+        //clearFragments()
+
+
         when (item.itemId) {
             R.id.navigation_menu_cad_cli -> {
-                openFragment(fragmentCadCli)
+
+                fragmentholder_task.setVisibility(LinearLayout.INVISIBLE);
+                fragmentholder_order.setVisibility(LinearLayout.INVISIBLE);
+                fragmentholder_address.setVisibility(LinearLayout.INVISIBLE);
+                fragmentholder_cli.setVisibility(LinearLayout.VISIBLE);
+
                 return@OnNavigationItemSelectedListener true
             }
             R.id.navigation_menu_address -> {
 
-                openFragment(fragmentCliAddress)
+
+                fragmentholder_cli.setVisibility(LinearLayout.INVISIBLE);
+                fragmentholder_task.setVisibility(LinearLayout.INVISIBLE);
+                fragmentholder_order.setVisibility(LinearLayout.INVISIBLE);
+                fragmentholder_address.setVisibility(LinearLayout.VISIBLE);
+                //openFragmentAddress(fragmentCliAddress)
                 return@OnNavigationItemSelectedListener true
 
             }
             R.id.navigation_task -> {
-                openFragment(fragmentTask)
+
+
+                fragmentholder_cli.setVisibility(LinearLayout.INVISIBLE);
+                fragmentholder_order.setVisibility(LinearLayout.INVISIBLE);
+                fragmentholder_address.setVisibility(LinearLayout.INVISIBLE);
+                fragmentholder_task.setVisibility(LinearLayout.VISIBLE);
+
                 return@OnNavigationItemSelectedListener true
 
             }
             R.id.navigation_save -> {
-                openFragment(fragmentSave)
+
+                loadInfoService()
+                fragmentholder_cli.setVisibility(LinearLayout.INVISIBLE);
+                fragmentholder_task.setVisibility(LinearLayout.INVISIBLE);
+                fragmentholder_address.setVisibility(LinearLayout.INVISIBLE);
+                fragmentholder_order.setVisibility(LinearLayout.VISIBLE);
+
                 return@OnNavigationItemSelectedListener true
 
             }
@@ -52,77 +79,33 @@ class OrderServiceActivity : MenuActivity() {
         false
     }
 
-    fun validateForm()
+    fun loadInfoService()
     {
+        fragmentSave.tvNameCli.text = "Nome: " + nameCli.text.toString()
+        fragmentSave.tvEmailCli.text = "Email: " + emailCli.text.toString()
+        fragmentSave.tvCellPhone.text = "Celular: " + cellPhone.text.toString()
+        fragmentSave.tvPhone.text = "Telefone: " + phoneCli.text.toString()
+
+
+        fragmentSave.tvCep.text = "CEP: " + cep.text.toString()
+        fragmentSave.tvAddress.text = "Endereço: " + address.text.toString()
+        fragmentSave.tvNumber.text = "Número: " + number.text.toString()
+        fragmentSave.tvDistrict.text = "Bairro: " + district.text.toString()
+        fragmentSave.tvCity.text = "Cidade: " + city.text.toString()
+        fragmentSave.tvUf.text = "Estado: " + uf.text.toString()
+
+        fragmentSave.tvDescription.text = "Descrição: " + description.text.toString()
 
     }
-
-    fun validateDataCli() : Boolean
-    {
-        val nameCli = fragmentCadCli.nameCli.text
-//        val emailCli = this.emailCli.text
-//        val cellPhone = this.cellPhone.text
-//        val phoneCli = this.phoneCli.text
-
-        if (nameCli.isNullOrEmpty()) {
-            toast("O nome é requerido!")
-            return false
-        }
-        return true
-//        else if (emailCli.isNullOrEmpty()){
-//            toast("O email é requerido!")
-//        } else if (cellPhone.isNullOrEmpty()){
-//            toast("O celular é requerido!")
-//        } else if (phoneCli.isNullOrEmpty()){
-//            toast("O telefone é requerido!")
-//        }
-
-    }
-
-    fun validateDataAddress() : Boolean
-    {
-
-        if (fragmentCliAddress?.cep == null){
-            toast("Você precisa preencher as fazes anteriores!")
-            return false
-        }
-
-        val cep = fragmentCliAddress.cep.text
-        val address = fragmentCliAddress.address.text
-        val number = fragmentCliAddress.number.text
-        val district = fragmentCliAddress.district.text
-        val city = fragmentCliAddress.city.text
-        val uf = fragmentCliAddress.uf.text
-
-        if (cep.isNullOrEmpty()){
-            toast("O CPF é requerido!")
-            return false
-        } else if (address.isNullOrEmpty()){
-            toast("O endereço é requerido!")
-            return false
-        } else if (number.isNullOrEmpty()){
-            toast("O número é requerido!")
-            return false
-        } else if (district.isNullOrEmpty()){
-            toast("O bairro é requerido!")
-            return false
-        } else if (city.isNullOrEmpty()){
-            toast("A cidade é requerido!")
-            return false
-        } else if (address.isNullOrEmpty()){
-            toast("O estado é requerido!")
-            return false
-        }
-        return true
-    }
-
-
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        openFragment(fragmentCliAddress)
-        openFragment(fragmentCadCli)
+
+        openFragmentCli(fragmentCadCli)
+        openFragmentAddress(fragmentCliAddress)
+        openFragmentTask(fragmentTask)
+        openFragment(fragmentSave)
+
         navigation_menu_cad_cli.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener)
     }
 
@@ -163,6 +146,33 @@ class OrderServiceActivity : MenuActivity() {
         transaction.replace(R.id.fragmentholder_order, fragment)
         transaction.addToBackStack(null)
         transaction.commit()
+    }
+
+    fun openFragmentCli(fragment: Fragment) {
+        val transaction = supportFragmentManager.beginTransaction()
+        transaction.replace(R.id.fragmentholder_cli, fragment)
+        transaction.addToBackStack(null)
+        transaction.commit()
+    }
+
+    fun openFragmentAddress(fragment: Fragment) {
+        val transaction = supportFragmentManager.beginTransaction()
+        transaction.replace(R.id.fragmentholder_address, fragment)
+        transaction.addToBackStack(null)
+        transaction.commit()
+    }
+
+    fun openFragmentTask(fragment: Fragment) {
+        val transaction = supportFragmentManager.beginTransaction()
+        transaction.replace(R.id.fragmentholder_task, fragment)
+        transaction.addToBackStack(null)
+        transaction.commit()
+    }
+
+
+    fun saveOrderService(view: View)
+    {
+
     }
 
 

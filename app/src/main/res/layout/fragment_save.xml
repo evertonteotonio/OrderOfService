@@ -1,31 +1,115 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".fragment.SaveFragment">
 
     <LinearLayout
-        android:id="@+id/dataSave"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_marginLeft="15dp"
-        android:layout_marginRight="15dp"
-        android:layout_marginTop="65dp"
-        >
+        android:minHeight="500dp"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:id="@+id/dataSave"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:layout_marginTop="65dp"
+            android:orientation="vertical">
+
+
+            <TextView
+                android:id="@+id/tvNameCli"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Nome: "
+                android:layout_marginTop="10dp"/>
+
+            <TextView
+                android:id="@+id/tvEmailCli"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Email: "
+                android:layout_marginTop="5dp"/>
+
+            <TextView
+                android:id="@+id/tvCellPhone"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Celular: "
+                android:layout_marginTop="5dp"/>
+
+            <TextView
+                android:id="@+id/tvPhone"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Telefone: "
+                android:layout_marginTop="5dp" />
+
+            <TextView
+                android:id="@+id/tvCep"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="CEP: "
+                android:layout_marginTop="5dp" />
+
+            <TextView
+                android:id="@+id/tvAddress"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Endereço: "
+                android:layout_marginTop="5dp" />
+
+            <TextView
+                android:id="@+id/tvNumber"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Número: "
+                android:layout_marginTop="5dp" />
+
+            <TextView
+                android:id="@+id/tvDistrict"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Bairro: "
+                android:layout_marginTop="5dp" />
+
+            <TextView
+                android:id="@+id/tvCity"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Cidade: "
+                android:layout_marginTop="5dp" />
+
+            <TextView
+                android:id="@+id/tvUf"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Estado: "
+                android:layout_marginTop="5dp" />
+
+            <TextView
+                android:id="@+id/tvDescription"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Descrição da Tarefa: " />
 
 
             <Button
-            android:id="@+id/btnSaveCli"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/save"
-            android:onClick="saveDataClient"
-            tools:ignore="OnClick" />
+                android:id="@+id/btnSaveCli"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/save"
+                android:onClick="saveDataClient"
+                tools:ignore="OnClick"
+                android:layout_marginTop="10dp"/>
+
+        </LinearLayout>
 
     </LinearLayout>
-
-
 
 </FrameLayout>
