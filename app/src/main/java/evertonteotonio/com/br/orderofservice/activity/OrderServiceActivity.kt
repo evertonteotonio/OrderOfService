@@ -118,23 +118,6 @@ class OrderServiceActivity : MenuActivity() {
         return R.id.navigation_new_service
     }
 
-    fun saveDataClient(view: View)
-    {
-        val nameCli = this.nameCli
-        val emailCli = this.emailCli
-        val cellPhone = this.cellPhone
-        val phoneCli = this.phoneCli
-
-        ClientRepository(this).create(
-                UUID.randomUUID().toString(),
-                nameCli.toString(),
-                emailCli.toString(),
-                cellPhone.toString(),
-                phoneCli.toString()
-        )
-
-    }
-
     fun clearFragments()
     {
         val fragmentManager = supportFragmentManager
@@ -169,9 +152,22 @@ class OrderServiceActivity : MenuActivity() {
         transaction.commit()
     }
 
-
     fun saveOrderService(view: View)
     {
+
+        val idCli = UUID.randomUUID().toString()
+
+        val cli = ClientRepository(this).create(
+                idCli,
+                this.nameCli.text.toString(),
+                this.emailCli.text.toString(),
+                this.cellPhone.text.toString(),
+                this.phoneCli.text.toString()
+        )
+
+        if (cli){
+
+        }
 
     }
 

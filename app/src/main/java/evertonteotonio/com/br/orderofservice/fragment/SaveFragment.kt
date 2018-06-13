@@ -29,25 +29,7 @@ class SaveFragment : Fragment() {
                               savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
 
-
-        val view = inflater.inflate(R.layout.fragment_save, container, false)
-
-//        val nameCli = getArguments()?.getString("nameCli");
-//        val tvEmailCli = getArguments()?.getString("emailCli");
-//        val tvCellPhone = getArguments()?.getString("cellPhone");
-//        val tvPhone = getArguments()?.getString("phoneCli");
-//        val cep = getArguments()?.getString("cep");
-//
-//
-//        view.tvNameCli.setText("Nome: " + nameCli)
-//        view.tvEmailCli.setText("Email: " + tvEmailCli)
-//        view.tvCellPhone.setText("Celular: " + tvCellPhone)
-//        view.tvPhone.setText("Celular: " + tvPhone)
-//
-//        view.tvCep.setText("CEP: " + cep)
-
-
-        return view
+        return inflater.inflate(R.layout.fragment_save, container, false)
 
     }
 
