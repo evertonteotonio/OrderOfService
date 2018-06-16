@@ -1,6 +1,5 @@
 package evertonteotonio.com.br.orderofservice.activity
 
-import android.content.res.Configuration
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentManager
 import android.os.Bundle
@@ -11,6 +10,7 @@ import evertonteotonio.com.br.orderofservice.R
 import evertonteotonio.com.br.orderofservice.fragment.*
 import evertonteotonio.com.br.orderofservice.repository.AddressRepository
 import evertonteotonio.com.br.orderofservice.repository.ClientRepository
+import evertonteotonio.com.br.orderofservice.repository.OrderServiceRepository
 import evertonteotonio.com.br.orderofservice.repository.TaskRepository
 import kotlinx.android.synthetic.main.activity_order_service.*
 import kotlinx.android.synthetic.main.fragment_address_cli.*
@@ -18,9 +18,6 @@ import kotlinx.android.synthetic.main.fragment_cad_cli.*
 import kotlinx.android.synthetic.main.fragment_save.*
 import kotlinx.android.synthetic.main.fragment_task.*
 import java.util.*
-import android.net.http.SslCertificate.saveState
-import android.util.Log
-
 
 class OrderServiceActivity : MenuActivity() {
 
@@ -164,35 +161,42 @@ class OrderServiceActivity : MenuActivity() {
     fun saveOrderService(view: View)
     {
 
-        val taskId = UUID.randomUUID().toString()
-
+        val clientId = UUID.randomUUID().toString()
         val cli = ClientRepository(this).create(
-                taskId,
+                clientId,
                 this.nameCli.text.toString(),
                 this.emailCli.text.toString(),
                 this.cellPhone.text.toString(),
                 this.phoneCli.text.toString()
         )
 
+        val addressId = UUID.randomUUID().toString()
+        val addr = AddressRepository(this).create(
+                addressId,
+                cep.text.toString(),
+                address.text.toString(),
+                number.text.toString(),
+                district.text.toString(),
+                city.text.toString(),
+                uf.text.toString()
+        )
+
+        val taskId = UUID.randomUUID().toString()
+        val task = TaskRepository(this).create(
+                taskId,
+                description.text.toString()
+        )
+
         if (cli){
-            val addr = AddressRepository(this).create(
+
+            val order = OrderServiceRepository(this).create(
+                    "1223",
+                    clientId,
                     taskId,
-                    cep.text.toString(),
-                    address.text.toString(),
-                    number.text.toString(),
-                    district.text.toString(),
-                    city.text.toString(),
-                    uf.text.toString()
-
+                    addressId,
+                    "teste"
             )
-
-            val task = TaskRepository(this).create(
-                    taskId,
-                    description.text.toString()
-            )
-
-
-
+            val test = 0
 
         }
 

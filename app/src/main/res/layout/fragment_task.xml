@@ -5,45 +5,49 @@
     android:layout_height="match_parent"
     tools:context=".fragment.TaskFragment">
 
-
-
-    <LinearLayout
-        android:id="@+id/dataTask"
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_marginLeft="15dp"
-        android:layout_marginRight="15dp"
-        android:minHeight="200dp"
-        android:layout_marginTop="65dp"
-        >
+        android:layout_height="match_parent">
 
-        <!-- EditText de descrição -->
-        <android.support.design.widget.TextInputLayout
+        <LinearLayout
+            android:id="@+id/dataTask"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/lbDescription">
+            android:orientation="vertical"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:minHeight="200dp"
+            android:layout_marginTop="65dp"
+            >
 
-            <ScrollView
-                android:layout_width="fill_parent"
-                android:layout_height="200dip"
-                android:minHeight="200dip">
+            <!-- EditText de descrição -->
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/lbDescription">
 
-                <EditText
-                    android:id="@+id/description"
-                    android:layout_height="wrap_content"
+                <ScrollView
                     android:layout_width="fill_parent"
-                    android:hint="@string/descri_task"
-                    android:inputType="textMultiLine"
-                    android:maxLines="30"
-                    android:minHeight="150dip"
-                    android:scrollbars="vertical"
-                    />
-            </ScrollView>
+                    android:layout_height="200dip"
+                    android:minHeight="200dip">
 
-        </android.support.design.widget.TextInputLayout>
+                    <EditText
+                        android:id="@+id/description"
+                        android:layout_height="wrap_content"
+                        android:layout_width="fill_parent"
+                        android:hint="@string/descri_task"
+                        android:inputType="textMultiLine"
+                        android:maxLines="30"
+                        android:minHeight="150dip"
+                        android:scrollbars="vertical"
+                        />
+                </ScrollView>
 
-    </LinearLayout>
+            </android.support.design.widget.TextInputLayout>
+
+        </LinearLayout>
+
+    </ScrollView>
 
 
 </FrameLayout>

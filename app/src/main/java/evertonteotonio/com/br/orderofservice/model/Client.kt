@@ -2,7 +2,7 @@ package evertonteotonio.com.br.orderofservice.model
 
 import java.util.*
 
-data class Client(val uuid: String = UUID.randomUUID().toString(), val name: String, val email: String, val phone: String,
+data class Client(val uuid: String, val name: String, val email: String, val phone: String,
                   val cellPhone: String, val createdAt: String, val UpdatedAt: String?)
 {
     companion object {
