@@ -30,6 +30,7 @@
             android:label="@string/title_activity_login" />
         <activity
             android:name=".activity.OrderListActivity"
+            android:configChanges="orientation|keyboard|keyboardHidden"
             android:label="@string/title_activity_menu_controller" />
         <activity android:name=".activity.AboutActivity" />
         <!-- <activity android:name=".activity.OrderListActivity"></activity> -->

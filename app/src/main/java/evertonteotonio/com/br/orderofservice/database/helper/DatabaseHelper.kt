@@ -55,8 +55,7 @@ class DatabaseHelper(ctx: Context) : ManagedSQLiteOpenHelper(ctx, "OrderServiceD
         db.createTable(Order.TABLE_NAME, true,
                 Order.COLUMN_UUID to TEXT + PRIMARY_KEY + UNIQUE,
                 Order.COLUMN_TYPESERVICEID to TEXT,
-                Order.COLUMN_USERID to TEXT,
-                Order.COLUMN_ADDRESS_ID to TEXT,
+                Order.COLUMN_STATUS to INTEGER,
                 Order.COLUMN_CREATED_AT to TEXT,
                 Order.COLUMN_UPDATED_AT to TEXT)
 
@@ -67,12 +66,22 @@ class DatabaseHelper(ctx: Context) : ManagedSQLiteOpenHelper(ctx, "OrderServiceD
                 TypeService.COLUMN_STATUS to INTEGER,
                 TypeService.COLUMN_CREATED_AT to TEXT)
 
+        db.createTable(Task.TABLE_NAME, true,
+                Task.COLUMN_UUID to TEXT + PRIMARY_KEY + UNIQUE,
+                Task.COLUMN_DESCRIPTION to TEXT,
+                Task.COLUMN_STATUS to INTEGER,
+                Task.COLUMN_CREATED_AT to TEXT,
+                Task.COLUMN_UPDATED_AT to TEXT)
+
     }
 
     override fun onUpgrade(db: SQLiteDatabase, oldVersion: Int, newVersion: Int) {
         // Aqui você pode atualizar tabelas, como de costume
         db.dropTable(User.TABLE_NAME.toString(), true)
         db.dropTable(Client.TABLE_NAME.toString(), true)
+        db.dropTable(Address.TABLE_NAME.toString(), true)
+        db.dropTable(Order.TABLE_NAME.toString(), true)
+        db.dropTable(TypeService.TABLE_NAME.toString(), true)
     }
 }
 

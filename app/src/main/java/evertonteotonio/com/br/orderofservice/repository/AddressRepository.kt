@@ -3,9 +3,7 @@ package evertonteotonio.com.br.orderofservice.repository
 import android.content.Context
 import evertonteotonio.com.br.orderofservice.database.helper.database
 import evertonteotonio.com.br.orderofservice.model.Address
-import evertonteotonio.com.br.orderofservice.model.Client
 import org.jetbrains.anko.db.insert
-import java.util.*
 
 class AddressRepository(val context: Context)
 {
@@ -15,7 +13,7 @@ class AddressRepository(val context: Context)
         var addressList: List<Address>? = null
     }
 
-    fun create(uuid: UUID, cep: String, address: String, number: String,
+    fun create(uuid: String, cep: String, address: String, number: String,
                district: String, city: String, uf: String): Boolean
     {
 

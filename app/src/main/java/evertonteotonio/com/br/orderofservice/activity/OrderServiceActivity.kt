@@ -1,5 +1,6 @@
 package evertonteotonio.com.br.orderofservice.activity
 
+import android.content.res.Configuration
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentManager
 import android.os.Bundle
@@ -8,13 +9,18 @@ import android.view.View
 import android.widget.LinearLayout
 import evertonteotonio.com.br.orderofservice.R
 import evertonteotonio.com.br.orderofservice.fragment.*
+import evertonteotonio.com.br.orderofservice.repository.AddressRepository
 import evertonteotonio.com.br.orderofservice.repository.ClientRepository
+import evertonteotonio.com.br.orderofservice.repository.TaskRepository
 import kotlinx.android.synthetic.main.activity_order_service.*
 import kotlinx.android.synthetic.main.fragment_address_cli.*
 import kotlinx.android.synthetic.main.fragment_cad_cli.*
 import kotlinx.android.synthetic.main.fragment_save.*
 import kotlinx.android.synthetic.main.fragment_task.*
 import java.util.*
+import android.net.http.SslCertificate.saveState
+import android.util.Log
+
 
 class OrderServiceActivity : MenuActivity() {
 
@@ -81,30 +87,33 @@ class OrderServiceActivity : MenuActivity() {
 
     fun loadInfoService()
     {
-        fragmentSave.tvNameCli.text = "Nome: " + nameCli.text.toString()
-        fragmentSave.tvEmailCli.text = "Email: " + emailCli.text.toString()
-        fragmentSave.tvCellPhone.text = "Celular: " + cellPhone.text.toString()
-        fragmentSave.tvPhone.text = "Telefone: " + phoneCli.text.toString()
+        tvNameCli.text = "Nome: " + nameCli.text.toString()
+        tvEmailCli.text = "Email: " + emailCli.text.toString()
+        tvCellPhone.text = "Celular: " + cellPhone.text.toString()
+        tvPhone.text = "Telefone: " + phoneCli.text.toString()
 
 
-        fragmentSave.tvCep.text = "CEP: " + cep.text.toString()
-        fragmentSave.tvAddress.text = "Endereço: " + address.text.toString()
-        fragmentSave.tvNumber.text = "Número: " + number.text.toString()
-        fragmentSave.tvDistrict.text = "Bairro: " + district.text.toString()
-        fragmentSave.tvCity.text = "Cidade: " + city.text.toString()
-        fragmentSave.tvUf.text = "Estado: " + uf.text.toString()
+        tvCep.text = "CEP: " + cep.text.toString()
+        tvAddress.text = "Endereço: " + address.text.toString()
+        tvNumber.text = "Número: " + number.text.toString()
+        tvDistrict.text = "Bairro: " + district.text.toString()
+        tvCity.text = "Cidade: " + city.text.toString()
+        tvUf.text = "Estado: " + uf.text.toString()
 
-        fragmentSave.tvDescription.text = "Descrição: " + description.text.toString()
+        tvDescription.text = "Descrição: " + description.text.toString()
 
     }
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        openFragmentCli(fragmentCadCli)
-        openFragmentAddress(fragmentCliAddress)
-        openFragmentTask(fragmentTask)
-        openFragment(fragmentSave)
+        if(savedInstanceState == null){
+            openFragmentCli(fragmentCadCli)
+            openFragmentAddress(fragmentCliAddress)
+            openFragmentTask(fragmentTask)
+            openFragment(fragmentSave)
+        }
 
         navigation_menu_cad_cli.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener)
     }
@@ -155,10 +164,10 @@ class OrderServiceActivity : MenuActivity() {
     fun saveOrderService(view: View)
     {
 
-        val idCli = UUID.randomUUID().toString()
+        val taskId = UUID.randomUUID().toString()
 
         val cli = ClientRepository(this).create(
-                idCli,
+                taskId,
                 this.nameCli.text.toString(),
                 this.emailCli.text.toString(),
                 this.cellPhone.text.toString(),
@@ -166,6 +175,24 @@ class OrderServiceActivity : MenuActivity() {
         )
 
         if (cli){
+            val addr = AddressRepository(this).create(
+                    taskId,
+                    cep.text.toString(),
+                    address.text.toString(),
+                    number.text.toString(),
+                    district.text.toString(),
+                    city.text.toString(),
+                    uf.text.toString()
+
+            )
+
+            val task = TaskRepository(this).create(
+                    taskId,
+                    description.text.toString()
+            )
+
+
+
 
         }
 

@@ -9,7 +9,7 @@ data class Address(val uuid: String = UUID.randomUUID().toString(), val cep: Str
 {
     companion object {
         val TABLE_NAME = "Address"
-        val COLUMN_UUID = "id"
+        val COLUMN_UUID = "uuid"
         val COLUMN_CEP = "cep"
         val COLUMN_ADDRESS = "address"
         val COLUMN_NUMBER = "number"
