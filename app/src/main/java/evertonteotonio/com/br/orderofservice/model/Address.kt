@@ -1,9 +1,8 @@
 package evertonteotonio.com.br.orderofservice.model
 
-import java.util.*
 
-data class Address(val uuid: String = UUID.randomUUID().toString(), val cep: String, val address: String, val number: Int,
-                   val publicPlace: String, val complement: String, val district: String,
+data class Address(val uuid: String, val cep: String, val address: String, val number: String?,
+                   val publicPlace: String?, val complement: String?, val district: String,
                    val city: String, val uf: String, val unity: String?, val ibge: String?,
                    val gia: String?)
 {

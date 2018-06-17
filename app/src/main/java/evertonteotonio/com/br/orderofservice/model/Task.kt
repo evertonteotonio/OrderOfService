@@ -2,7 +2,8 @@ package evertonteotonio.com.br.orderofservice.model
 
 import java.util.*
 
-data class Task(val uuid: String = UUID.randomUUID().toString(), val description: String)
+data class Task(val uuid: String, val description: String?,
+                val status: String?, val created_at: String?, val updated_at: String?)
 {
     companion object {
         val TABLE_NAME = "Task"

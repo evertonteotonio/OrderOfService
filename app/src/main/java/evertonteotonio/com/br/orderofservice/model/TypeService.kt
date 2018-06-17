@@ -2,8 +2,8 @@ package evertonteotonio.com.br.orderofservice.model
 
 import java.util.*
 
-data class TypeService(val uuid: String = UUID.randomUUID().toString(), val title: String,
-                       val description: String, val status: Int,val createdAt: Date)
+data class TypeService(val uuid: String, val title: String,
+                       val description: String, val status: String?,val createdAt: String)
 {
 
     companion object {

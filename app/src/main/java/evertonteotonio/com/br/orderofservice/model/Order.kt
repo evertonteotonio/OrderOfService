@@ -5,7 +5,7 @@ data class Order(val uuid: String,
                  val clientId: String,
                  val taskId: String,
                  val addressId: String,
-                 val status: Int,
+                 val status: String?,
                  val typeServiceId: String,
                  val createdAt: String,
                  val updatedAt: String?) {

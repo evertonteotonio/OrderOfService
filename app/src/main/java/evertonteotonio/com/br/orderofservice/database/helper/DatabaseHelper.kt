@@ -42,7 +42,7 @@ class DatabaseHelper(ctx: Context) : ManagedSQLiteOpenHelper(ctx, "OrderServiceD
                 Address.COLUMN_UUID to TEXT + PRIMARY_KEY + UNIQUE,
                 Address.COLUMN_CEP to TEXT,
                 Address.COLUMN_ADDRESS to TEXT,
-                Address.COLUMN_NUMBER to INTEGER,
+                Address.COLUMN_NUMBER to TEXT,
                 Address.COLUMN_PUBLIC_PLACE to TEXT,
                 Address.COLUMN_COMPLEMENT to TEXT,
                 Address.COLUMN_DISTRICT to TEXT,
@@ -58,7 +58,7 @@ class DatabaseHelper(ctx: Context) : ManagedSQLiteOpenHelper(ctx, "OrderServiceD
                 Order.COLUMN_CLIENT_ID to TEXT,
                 Order.COLUMN_TASK_ID to TEXT,
                 Order.COLUMN_ADDRESS_ID to TEXT,
-                Order.COLUMN_STATUS to INTEGER,
+                Order.COLUMN_STATUS to TEXT,
                 Order.COLUMN_TYPESERVICEID to TEXT,
                 Order.COLUMN_CREATED_AT to TEXT,
                 Order.COLUMN_UPDATED_AT to TEXT)
@@ -73,7 +73,7 @@ class DatabaseHelper(ctx: Context) : ManagedSQLiteOpenHelper(ctx, "OrderServiceD
         db.createTable(Task.TABLE_NAME, true,
                 Task.COLUMN_UUID to TEXT + PRIMARY_KEY + UNIQUE,
                 Task.COLUMN_DESCRIPTION to TEXT,
-                Task.COLUMN_STATUS to INTEGER,
+                Task.COLUMN_STATUS to TEXT,
                 Task.COLUMN_CREATED_AT to TEXT,
                 Task.COLUMN_UPDATED_AT to TEXT)
 

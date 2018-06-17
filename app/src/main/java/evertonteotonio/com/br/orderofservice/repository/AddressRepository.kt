@@ -3,11 +3,12 @@ package evertonteotonio.com.br.orderofservice.repository
 import android.content.Context
 import evertonteotonio.com.br.orderofservice.database.helper.database
 import evertonteotonio.com.br.orderofservice.model.Address
+import org.jetbrains.anko.db.classParser
 import org.jetbrains.anko.db.insert
+import org.jetbrains.anko.db.select
 
 class AddressRepository(val context: Context)
 {
-
     companion object {
         var totalList: Int? = null
         var addressList: List<Address>? = null
@@ -33,5 +34,17 @@ class AddressRepository(val context: Context)
         }
         return true
     }
+
+    fun findById(uuid: String) : List<Address>?
+    {
+        context.database.use{
+            addressList = select(Address.TABLE_NAME)
+                    .whereArgs(Address.COLUMN_UUID + " = {uuid}", "uuid" to uuid)
+                    .limit(1).parseList(classParser<Address>())
+
+        }
+        return addressList
+    }
+
 
 }

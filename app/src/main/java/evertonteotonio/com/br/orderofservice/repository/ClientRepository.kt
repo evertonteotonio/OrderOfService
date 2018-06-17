@@ -3,14 +3,16 @@ package evertonteotonio.com.br.orderofservice.repository
 import android.content.Context
 import evertonteotonio.com.br.orderofservice.database.helper.database
 import evertonteotonio.com.br.orderofservice.model.Client
+import org.jetbrains.anko.db.classParser
 import org.jetbrains.anko.db.insert
+import org.jetbrains.anko.db.select
 import java.util.*
 
 class ClientRepository(val context: Context)
 {
     companion object {
         var totalList: Int? = null
-        var usersList: List<Client>? = null
+        var clientList: List<Client>? = null
     }
 
     fun create(uuid: String, name: String,
@@ -32,5 +34,16 @@ class ClientRepository(val context: Context)
         return true
     }
 
+
+    fun findById(uuid: String) : List<Client>?
+    {
+        context.database.use{
+            clientList = select(Client.TABLE_NAME)
+                    .whereArgs(Client.COLUMN_UUID + " = {uuid}", "uuid" to uuid)
+                    .limit(1).parseList(classParser<Client>())
+
+        }
+        return clientList
+    }
 
 }

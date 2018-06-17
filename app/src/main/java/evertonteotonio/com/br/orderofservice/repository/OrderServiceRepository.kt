@@ -3,30 +3,50 @@ package evertonteotonio.com.br.orderofservice.repository
 import android.content.Context
 import evertonteotonio.com.br.orderofservice.database.helper.database
 import evertonteotonio.com.br.orderofservice.model.Order
+import evertonteotonio.com.br.orderofservice.model.OrderService
 import org.jetbrains.anko.db.classParser
 import org.jetbrains.anko.db.insert
 import org.jetbrains.anko.db.select
 import java.util.*
+import kotlin.collections.ArrayList
 
 class OrderServiceRepository(val context: Context)
 {
+
+    val listOrderService = arrayListOf<OrderService>()
 
     companion object {
         var totalList: Int? = null
         var orderServiceList: List<Order>? = null
     }
 
-    fun getAllOrderServices(): List<Order>? {
-        context.database.use{
-//            select(Order.TABLE_NAME).exec {
-//                OrderServiceRepository.orderServiceList = parseList(classParser<Order>())
-//                OrderServiceRepository.totalList = this.count
-//            }
 
-            OrderServiceRepository.orderServiceList =  select(Order.TABLE_NAME).parseList(classParser<Order>())
+    fun getAllOrder(): List<Order>? {
+        context.database.use{
+            OrderServiceRepository.orderServiceList =  select(Order.TABLE_NAME)
+                    .parseList(classParser<Order>())
         }
         return OrderServiceRepository.orderServiceList
     }
+
+    fun getAllOrderServices(): ArrayList<OrderService> {
+
+        val orderServices = OrderServiceRepository(context).getAllOrder()
+
+        if (orderServices != null) {
+            for(order in orderServices){
+
+                val client = ClientRepository(context).findById(order.clientId)
+                val address = AddressRepository(context).findById(order.addressId)
+                val task = TaskRepository(context).findById(order.taskId)
+
+                listOrderService.add(OrderService(order, client!![0], address!![0], task!![0]))
+
+            }
+        }
+        return listOrderService
+    }
+
 
     fun create(userId: String, clientId: String,
                taskId: String, addressId: String, type: String, status: Int = 0) : Boolean
