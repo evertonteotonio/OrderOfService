@@ -73,6 +73,8 @@ class DatabaseHelper(ctx: Context) : ManagedSQLiteOpenHelper(ctx, "OrderServiceD
         db.createTable(Task.TABLE_NAME, true,
                 Task.COLUMN_UUID to TEXT + PRIMARY_KEY + UNIQUE,
                 Task.COLUMN_DESCRIPTION to TEXT,
+                Task.COLUMN_DATE to TEXT,
+                Task.COLUMN_TIME to TEXT,
                 Task.COLUMN_STATUS to TEXT,
                 Task.COLUMN_CREATED_AT to TEXT,
                 Task.COLUMN_UPDATED_AT to TEXT)

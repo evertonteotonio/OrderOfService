@@ -16,12 +16,14 @@ class TaskRepository(val context: Context)
         var taskList: List<Task>? = null
     }
 
-    fun create(uuid: String, description: String) : Boolean{
+    fun create(uuid: String, description: String, date: String, time: String) : Boolean{
 
         var totalList = context.database.use {
             insert(Task.TABLE_NAME,
                     Task.COLUMN_UUID to uuid,
                     Task.COLUMN_DESCRIPTION to description,
+                    Task.COLUMN_DATE to date,
+                    Task.COLUMN_TIME to time,
                     Task.COLUMN_CREATED_AT to Date().toString()
             )
         }

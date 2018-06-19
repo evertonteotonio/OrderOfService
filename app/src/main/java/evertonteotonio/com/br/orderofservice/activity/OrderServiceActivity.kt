@@ -6,6 +6,12 @@ import android.os.Bundle
 import android.support.design.widget.BottomNavigationView
 import android.view.View
 import android.widget.LinearLayout
+import com.karumi.dexter.Dexter
+import com.karumi.dexter.PermissionToken
+import com.karumi.dexter.listener.PermissionDeniedResponse
+import com.karumi.dexter.listener.PermissionGrantedResponse
+import com.karumi.dexter.listener.PermissionRequest
+import com.karumi.dexter.listener.single.PermissionListener
 import evertonteotonio.com.br.orderofservice.R
 import evertonteotonio.com.br.orderofservice.fragment.*
 import evertonteotonio.com.br.orderofservice.repository.AddressRepository
@@ -18,6 +24,15 @@ import kotlinx.android.synthetic.main.fragment_cad_cli.*
 import kotlinx.android.synthetic.main.fragment_save.*
 import kotlinx.android.synthetic.main.fragment_task.*
 import java.util.*
+import evertonteotonio.com.br.orderofservice.fragment.DatePickerFragment
+import evertonteotonio.com.br.orderofservice.fragment.TimePickerFragment
+import com.karumi.dexter.listener.single.DialogOnDeniedPermissionListener
+
+
+
+
+
+
 
 class OrderServiceActivity : MenuActivity() {
 
@@ -98,6 +113,10 @@ class OrderServiceActivity : MenuActivity() {
         tvUf.text = "Estado: " + uf.text.toString()
 
         tvDescription.text = "Descrição: " + description.text.toString()
+
+        tvDate.text = tvDate.text.toString()
+        tvTime.text = tvTime.text.toString()
+
 
     }
 
@@ -184,7 +203,9 @@ class OrderServiceActivity : MenuActivity() {
         val taskId = UUID.randomUUID().toString()
         val task = TaskRepository(this).create(
                 taskId,
-                description.text.toString()
+                description.text.toString(),
+                tvDate.text.toString(),
+                tvTime.text.toString()
         )
 
         if (cli){
@@ -202,5 +223,13 @@ class OrderServiceActivity : MenuActivity() {
 
     }
 
+    fun showDatePickerDialog(v: View) {
+        val newFragment = DatePickerFragment()
+        newFragment.show(supportFragmentManager, "datePicker")
+    }
 
+    fun showTimePickerDialog(v: View) {
+        val newFragment = TimePickerFragment()
+        newFragment.show(supportFragmentManager, "timePicker")
+    }
 }

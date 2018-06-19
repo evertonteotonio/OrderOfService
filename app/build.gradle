@@ -32,6 +32,9 @@ dependencies {
 
     // Anko
     implementation "org.jetbrains.anko:anko-sqlite:$anko_version"
+    // Anko Commons – Dialogs
+    implementation "org.jetbrains.anko:anko-commons:$anko_version"
+    implementation "org.jetbrains.anko:anko-design:$anko_version" // For SnackBars
 
     implementation "com.google.android.gms:play-services-maps:$google_version"
     implementation "com.google.android.gms:play-services-location:$google_version"
@@ -47,6 +50,8 @@ dependencies {
     implementation 'com.android.support:cardview-v7:27.1.1'
 
     implementation 'com.ramotion.foldingcell:folding-cell:1.2.2'
+
+    implementation 'com.karumi:dexter:4.2.0'
 
 
 }
