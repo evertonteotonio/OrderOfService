@@ -63,8 +63,8 @@
                                   <option name="values">
                                     <map>
                                       <entry key="assetType" value="IMAGE" />
-                                      <entry key="imageAsset" value="C:\Users\Everton\Desktop\imagens trabalho android\driller.png" />
-                                      <entry key="outputName" value="ic_driller" />
+                                      <entry key="imageAsset" value="C:\Users\Everton\Desktop\imagens trabalho android\camera-mobile.png" />
+                                      <entry key="outputName" value="ic_camera_mobile" />
                                     </map>
                                   </option>
                                 </PersistentState>

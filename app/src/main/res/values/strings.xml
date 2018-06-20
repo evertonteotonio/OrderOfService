@@ -36,6 +36,7 @@
     <string name="descri_task">Descrição da Tarefa</string>
     <string name="address_task">Endereço da tarefa</string>
     <string name="save">Salvar</string>
+    <string name="title_activity_maps">Map</string>
 
 
 </resources>

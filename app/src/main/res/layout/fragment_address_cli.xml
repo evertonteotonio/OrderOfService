@@ -17,7 +17,7 @@
         android:orientation="vertical"
         android:layout_marginLeft="15dp"
         android:layout_marginRight="15dp"
-        android:minHeight="470dp"
+        android:minHeight="500dp"
         android:layout_marginTop="65dp"
         >
 
@@ -113,6 +113,15 @@
                 android:maxLines="1"
                 android:singleLine="true" />
         </android.support.design.widget.TextInputLayout>
+
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Vizualizar no mapa"
+            android:id="@+id/btViewMap"
+            android:onClick="viewMap"
+            tools:ignore="OnClick" />
 
 
 

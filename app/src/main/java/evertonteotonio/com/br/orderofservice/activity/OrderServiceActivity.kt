@@ -241,6 +241,13 @@ class OrderServiceActivity : MenuActivity() {
 
     }
 
+
+    fun viewMap(v: View)
+    {
+        //getActionBar().setDisplayHomeAsUpEnabled(true);
+        startActivity(Intent(this, MapsActivity::class.java))
+    }
+
     fun showDatePickerDialog(v: View) {
         val newFragment = DatePickerFragment()
         newFragment.show(supportFragmentManager, "datePicker")
