@@ -4,12 +4,12 @@ import android.app.Activity
 import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
-import android.support.v4.app.Fragment
-import android.support.v4.app.FragmentManager
 import android.os.Bundle
 import android.os.Environment
 import android.provider.MediaStore
 import android.support.design.widget.BottomNavigationView
+import android.support.v4.app.Fragment
+import android.support.v4.app.FragmentManager
 import android.support.v4.content.FileProvider
 import android.view.View
 import android.widget.LinearLayout
@@ -27,12 +27,10 @@ import kotlinx.android.synthetic.main.fragment_address_cli.*
 import kotlinx.android.synthetic.main.fragment_cad_cli.*
 import kotlinx.android.synthetic.main.fragment_save.*
 import kotlinx.android.synthetic.main.fragment_task.*
-import java.util.*
-import evertonteotonio.com.br.orderofservice.fragment.DatePickerFragment
-import evertonteotonio.com.br.orderofservice.fragment.TimePickerFragment
 import java.io.File
 import java.io.IOException
 import java.text.SimpleDateFormat
+import java.util.*
 
 
 class OrderServiceActivity : MenuActivity() {
@@ -44,6 +42,8 @@ class OrderServiceActivity : MenuActivity() {
     val fragmentCliAddress = AddressCliFragment()
     val fragmentTask = TaskFragment()
     val fragmentSave = SaveFragment()
+    var uuidOrder: String? = null
+
 
     val CAMERA_REQUEST_CODE = 0
     lateinit var imageFilePath: String
@@ -128,6 +128,9 @@ class OrderServiceActivity : MenuActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+
+        uuidOrder = intent.getStringExtra("UUID_ORDER")
+
         if(savedInstanceState == null){
             openFragmentCli(fragmentCadCli)
             openFragmentAddress(fragmentCliAddress)
@@ -147,7 +150,6 @@ class OrderServiceActivity : MenuActivity() {
                 .withListener(dialogPermissionListener)
                 .onSameThread()
                 .check();
-
 
         navigation_menu_cad_cli.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener)
     }
@@ -244,7 +246,6 @@ class OrderServiceActivity : MenuActivity() {
 
     fun viewMap(v: View)
     {
-        //getActionBar().setDisplayHomeAsUpEnabled(true);
         startActivity(Intent(this, MapsActivity::class.java))
     }
 
@@ -324,6 +325,50 @@ class OrderServiceActivity : MenuActivity() {
             }
         }
     }
+
+    fun getDataOrder(uuidOrder: String)
+    {
+        val order = OrderServiceRepository(this).getOrderServicesById(uuidOrder)
+
+        if (order != null) {
+
+
+            if (order.client != null){
+                this.nameCli.setText(order.client?.name)
+                this.emailCli.setText(order.client?.email)
+                this.cellPhone.setText(order.client?.cellPhone)
+                this.phoneCli.setText(order.client?.phone)
+
+            }
+
+            if (order.address != null){
+                this.cep.setText(order.address?.cep)
+                this.address.setText(order.address?.address)
+                this.number.setText(order.address?.number)
+                this.district.setText(order.address?.district)
+                this.city.setText(order.address?.city)
+                this.uf.setText(order.address?.uf)
+            }
+
+            if (order.task != null){
+                this.tvDate.setText(order.task?.date)
+                this.tvTime.setText(order.task?.time)
+                this.description.setText(order.task?.description)
+            }
+
+        }
+
+    }
+
+
+    override fun onResume() {
+        super.onResume()
+
+        if (uuidOrder != null){
+            getDataOrder(uuidOrder.toString())
+        }
+    }
+
 
 }
 

@@ -4,11 +4,11 @@ import android.content.Context
 import evertonteotonio.com.br.orderofservice.database.helper.database
 import evertonteotonio.com.br.orderofservice.model.Order
 import evertonteotonio.com.br.orderofservice.model.OrderService
+import evertonteotonio.com.br.orderofservice.model.User
 import org.jetbrains.anko.db.classParser
 import org.jetbrains.anko.db.insert
 import org.jetbrains.anko.db.select
 import java.util.*
-import kotlin.collections.ArrayList
 
 class OrderServiceRepository(val context: Context)
 {
@@ -69,6 +69,39 @@ class OrderServiceRepository(val context: Context)
         }
         return true
     }
+
+
+
+    fun getOrderById(uuid: String): List<Order>? {
+        context.database.use{
+            OrderServiceRepository.orderServiceList =  select(Order.TABLE_NAME)
+                    .whereArgs(User.COLUMN_UUID + " = {uuid}", "uuid" to uuid)
+                    .parseList(classParser<Order>())
+        }
+        return OrderServiceRepository.orderServiceList
+    }
+
+
+    fun getOrderServicesById(uuid: String): OrderService? {
+
+        val orderServices = OrderServiceRepository(context).getOrderById(uuid)
+
+        var service: OrderService? = null
+
+        if (orderServices != null) {
+            for(order in orderServices){
+
+                val client = ClientRepository(context).findById(order.clientId)
+                val address = AddressRepository(context).findById(order.addressId)
+                val task = TaskRepository(context).findById(order.taskId)
+
+                service = OrderService(order, client!![0], address!![0], task!![0])
+
+            }
+        }
+        return service
+    }
+
 
 
 }

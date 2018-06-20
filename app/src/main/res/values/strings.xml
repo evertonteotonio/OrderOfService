@@ -19,7 +19,7 @@
     <string name="title_home">Serviços</string>
     <string name="title_new_service">Novo Serviço</string>
     <string name="title_about">Sobre</string>
-    <string name="title_activity_menu_controller">MenuController</string>
+    <string name="title_activity_menu_controller">Ordem de serviço</string>
     <string name="title_contact">Contato</string>
     <string name="title_address">Endereço</string>
     <string name="title_save">Salvar</string>
@@ -36,7 +36,7 @@
     <string name="descri_task">Descrição da Tarefa</string>
     <string name="address_task">Endereço da tarefa</string>
     <string name="save">Salvar</string>
-    <string name="title_activity_maps">Map</string>
+    <string name="title_activity_maps">Mapa do serviço</string>
 
 
 </resources>
