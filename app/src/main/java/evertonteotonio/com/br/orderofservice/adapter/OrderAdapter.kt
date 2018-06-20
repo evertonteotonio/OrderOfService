@@ -1,19 +1,19 @@
 package evertonteotonio.com.br.orderofservice.adapter
 
-import android.app.AlertDialog
 import android.content.Context
+import android.content.Intent
+import android.content.pm.PackageManager
+import android.support.v4.content.ContextCompat
 import android.support.v7.widget.RecyclerView
-import android.util.Log
-import android.view.ViewGroup
 import android.view.LayoutInflater
 import android.view.View
 import android.view.View.OnClickListener
+import android.view.ViewGroup
 import evertonteotonio.com.br.orderofservice.R
+import evertonteotonio.com.br.orderofservice.activity.OrderServiceActivity
 import evertonteotonio.com.br.orderofservice.listener.OnItemClickListener
 import evertonteotonio.com.br.orderofservice.model.OrderService
 import kotlinx.android.synthetic.main.order_list_item.view.*
-import android.content.pm.PackageManager
-import android.support.v4.content.ContextCompat
 import org.jetbrains.anko.makeCall
 import org.jetbrains.anko.toast
 
@@ -32,8 +32,6 @@ class  OrderAdapter(private val  context: Context, data: ArrayList<OrderService>
 
     inner class OrderViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView), OnClickListener{
 
-        val dialogBuilder = AlertDialog.Builder(itemView.context)
-
         val tvName = itemView.tvName
         val tvDate = itemView.tvDate
         val tvDescription = itemView.tvDescription
@@ -41,6 +39,8 @@ class  OrderAdapter(private val  context: Context, data: ArrayList<OrderService>
         val ibUpdate = itemView.ivCall.setOnClickListener(this)
         val layContent = itemView.layContent.setOnClickListener(this)
         val cellPhone = itemView.tvCellPhone
+
+        var uuidOrder: String? = null
 
         override fun onClick(v: View?) {
 
@@ -62,13 +62,18 @@ class  OrderAdapter(private val  context: Context, data: ArrayList<OrderService>
                         v.context.makeCall(cell)
                     }
 
+                } else if (v.layContent?.isClickable == true){
+
+                    val intent = Intent(v.context, OrderServiceActivity::class.java)
+                    intent.putExtra("UUID_ORDER", uuidOrder);
+                    context.startActivity(intent)
+
                 }
+
 
             }
 
             if (clickListener != null) clickListener!!.onClick(itemView, getAdapterPosition());
-
-            Log.i("CLICK","Clicou")
 
         }
 
@@ -100,6 +105,8 @@ class  OrderAdapter(private val  context: Context, data: ArrayList<OrderService>
         orderHolder.cellPhone.text = "Celular: " + currentOrder.client?.cellPhone
 
 
+        // Obtem o id da pesquisa para quando for editar a ordem de serviço
+        orderHolder.uuidOrder = currentOrder.order?.uuid
 
     }
 
