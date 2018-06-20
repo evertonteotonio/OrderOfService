@@ -1,11 +1,21 @@
 package evertonteotonio.com.br.orderofservice.activity
 
+import android.app.Activity
+import android.content.Intent
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentManager
 import android.os.Bundle
+import android.os.Environment
+import android.provider.MediaStore
 import android.support.design.widget.BottomNavigationView
+import android.support.v4.content.FileProvider
 import android.view.View
 import android.widget.LinearLayout
+import android.widget.Toast
+import com.karumi.dexter.Dexter
+import com.karumi.dexter.listener.single.DialogOnDeniedPermissionListener
 import evertonteotonio.com.br.orderofservice.R
 import evertonteotonio.com.br.orderofservice.fragment.*
 import evertonteotonio.com.br.orderofservice.repository.AddressRepository
@@ -20,6 +30,9 @@ import kotlinx.android.synthetic.main.fragment_task.*
 import java.util.*
 import evertonteotonio.com.br.orderofservice.fragment.DatePickerFragment
 import evertonteotonio.com.br.orderofservice.fragment.TimePickerFragment
+import java.io.File
+import java.io.IOException
+import java.text.SimpleDateFormat
 
 
 class OrderServiceActivity : MenuActivity() {
@@ -31,6 +44,9 @@ class OrderServiceActivity : MenuActivity() {
     val fragmentCliAddress = AddressCliFragment()
     val fragmentTask = TaskFragment()
     val fragmentSave = SaveFragment()
+
+    val CAMERA_REQUEST_CODE = 0
+    lateinit var imageFilePath: String
 
 
     private val mOnNavigationItemSelectedListener = BottomNavigationView.OnNavigationItemSelectedListener { item ->
@@ -118,6 +134,20 @@ class OrderServiceActivity : MenuActivity() {
             openFragmentTask(fragmentTask)
             openFragment(fragmentSave)
         }
+
+        val dialogPermissionListener = DialogOnDeniedPermissionListener.Builder
+                .withContext(this.baseContext)
+                .withTitle("Permissão de camera")
+                .withMessage("É necessária a permissão da camera para tirar uma foto")
+                .withButtonText(android.R.string.ok)
+                .build()
+
+        Dexter.withActivity(this@OrderServiceActivity)
+                .withPermission(android.Manifest.permission.CAMERA )
+                .withListener(dialogPermissionListener)
+                .onSameThread()
+                .check();
+
 
         navigation_menu_cad_cli.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener)
     }
@@ -224,6 +254,69 @@ class OrderServiceActivity : MenuActivity() {
     fun getCapturePhoto(v: View)
     {
 
+        try {
+            val imageFile = createImageFile()
+            val callCameraIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
+            if(callCameraIntent.resolveActivity(packageManager) != null) {
+                val authorities = packageName + ".fileprovider"
+                val imageUri = FileProvider.getUriForFile(this, authorities, imageFile)
+                callCameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, imageUri)
+                startActivityForResult(callCameraIntent, CAMERA_REQUEST_CODE)
+            }
+        } catch (e: IOException) {
+            Toast.makeText(this, "Não foi possível criar o arquivo!",
+                    Toast.LENGTH_SHORT).show()
+        }
+    }
+
+    @Throws(IOException::class)
+    fun createImageFile(): File {
+        val timeStamp: String = SimpleDateFormat("yyyyMMdd_HHmmss").format(Date())
+        val imageFileName: String = "JPEG_" + timeStamp + "_"
+        val storageDir: File = getExternalFilesDir(Environment.DIRECTORY_PICTURES)
+        if(!storageDir.exists()) storageDir.mkdirs()
+        val imageFile = File.createTempFile(imageFileName, ".jpg", storageDir)
+        imageFilePath = imageFile.absolutePath
+        return imageFile
+    }
+
+    fun setScaledBitmap(): Bitmap {
+        val imageViewWidth = photoImageView.width
+        val imageViewHeight = photoImageView.height
+
+        val bmOptions = BitmapFactory.Options()
+        bmOptions.inJustDecodeBounds = true
+        BitmapFactory.decodeFile(imageFilePath, bmOptions)
+        val bitmapWidth = bmOptions.outWidth
+        val bitmapHeight = bmOptions.outHeight
+
+        val scaleFactor = Math.min(bitmapWidth/imageViewWidth, bitmapHeight/imageViewHeight)
+
+        bmOptions.inJustDecodeBounds = false
+        bmOptions.inSampleSize = scaleFactor
+
+        return BitmapFactory.decodeFile(imageFilePath, bmOptions)
+
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+
+        when(requestCode) {
+            CAMERA_REQUEST_CODE -> {
+/*                if(resultCode == Activity.RESULT_OK && data != null) {
+                    photoImageView.setImageBitmap(data.extras.get("data") as Bitmap)
+                }*/
+                if (resultCode == Activity.RESULT_OK) {
+                    photoImageView.setImageBitmap(setScaledBitmap())
+                }
+            }
+            else -> {
+                Toast.makeText(this, "Código de solicitação não reconhecido",
+                        Toast.LENGTH_SHORT).show()
+            }
+        }
     }
 
 }
+
