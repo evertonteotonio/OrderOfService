@@ -18,6 +18,7 @@ import com.karumi.dexter.Dexter
 import com.karumi.dexter.listener.single.DialogOnDeniedPermissionListener
 import evertonteotonio.com.br.orderofservice.R
 import evertonteotonio.com.br.orderofservice.fragment.*
+import evertonteotonio.com.br.orderofservice.model.OrderService
 import evertonteotonio.com.br.orderofservice.repository.AddressRepository
 import evertonteotonio.com.br.orderofservice.repository.ClientRepository
 import evertonteotonio.com.br.orderofservice.repository.OrderServiceRepository
@@ -43,6 +44,7 @@ class OrderServiceActivity : MenuActivity() {
     val fragmentTask = TaskFragment()
     val fragmentSave = SaveFragment()
     var uuidOrder: String? = null
+    var order: OrderService? = null
 
 
     val CAMERA_REQUEST_CODE = 0
@@ -244,6 +246,36 @@ class OrderServiceActivity : MenuActivity() {
     }
 
 
+    fun updateOrderService(view: View)
+    {
+        ClientRepository(this).update(
+                order?.client?.uuid.toString(),
+                this.nameCli.text.toString(),
+                this.emailCli.text.toString(),
+                this.cellPhone.text.toString(),
+                this.phoneCli.text.toString()
+        )
+
+        AddressRepository(this).update(
+                order?.address?.uuid.toString(),
+                cep.text.toString(),
+                address.text.toString(),
+                number.text.toString(),
+                district.text.toString(),
+                city.text.toString(),
+                uf.text.toString()
+        )
+
+       TaskRepository(this).update(
+                order?.task?.uuid.toString(),
+                description.text.toString(),
+                tvDate.text.toString(),
+                tvTime.text.toString()
+        )
+
+    }
+
+
     fun viewMap(v: View)
     {
         startActivity(Intent(this, MapsActivity::class.java))
@@ -329,32 +361,32 @@ class OrderServiceActivity : MenuActivity() {
 
     fun getDataOrder(uuidOrder: String)
     {
-        val order = OrderServiceRepository(this).getOrderServicesById(uuidOrder)
+        order = OrderServiceRepository(this).getOrderServicesById(uuidOrder)
 
         if (order != null) {
 
 
-            if (order.client != null){
-                this.nameCli.setText(order.client?.name)
-                this.emailCli.setText(order.client?.email)
-                this.cellPhone.setText(order.client?.cellPhone)
-                this.phoneCli.setText(order.client?.phone)
+            if (order?.client != null){
+                this.nameCli.setText(order?.client?.name)
+                this.emailCli.setText(order?.client?.email)
+                this.cellPhone.setText(order?.client?.cellPhone)
+                this.phoneCli.setText(order?.client?.phone)
 
             }
 
-            if (order.address != null){
-                this.cep.setText(order.address?.cep)
-                this.address.setText(order.address?.address)
-                this.number.setText(order.address?.number)
-                this.district.setText(order.address?.district)
-                this.city.setText(order.address?.city)
-                this.uf.setText(order.address?.uf)
+            if (order?.address != null){
+                this.cep.setText(order?.address?.cep)
+                this.address.setText(order?.address?.address)
+                this.number.setText(order?.address?.number)
+                this.district.setText(order?.address?.district)
+                this.city.setText(order?.address?.city)
+                this.uf.setText(order?.address?.uf)
             }
 
-            if (order.task != null){
-                this.tvDate.setText(order.task?.date)
-                this.tvTime.setText(order.task?.time)
-                this.description.setText(order.task?.description)
+            if (order?.task != null){
+                this.tvDate.setText(order?.task?.date)
+                this.tvTime.setText(order?.task?.time)
+                this.description.setText(order?.task?.description)
             }
 
         }

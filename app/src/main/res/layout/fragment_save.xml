@@ -112,6 +112,17 @@
                 tools:ignore="OnClick"
                 android:layout_marginTop="10dp"/>
 
+
+            <Button
+                android:id="@+id/btnUpdateCli"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Atualizar serviço"
+                android:onClick="updateOrderService"
+                tools:ignore="OnClick"
+                android:layout_marginTop="10dp"/>
+
+
         </LinearLayout>
 
     </LinearLayout>
