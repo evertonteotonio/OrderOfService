@@ -260,6 +260,7 @@ class OrderServiceActivity : MenuActivity() {
     }
 
     fun getCapturePhoto(v: View)
+
     {
 
         try {
