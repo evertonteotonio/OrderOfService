@@ -243,6 +243,8 @@ class OrderServiceActivity : MenuActivity() {
 
         }
 
+        startActivity(Intent(this, OrderListActivity::class.java))
+
     }
 
 
@@ -272,6 +274,8 @@ class OrderServiceActivity : MenuActivity() {
                 tvDate.text.toString(),
                 tvTime.text.toString()
         )
+
+        startActivity(Intent(this, OrderListActivity::class.java))
 
     }
 
@@ -398,7 +402,19 @@ class OrderServiceActivity : MenuActivity() {
         super.onResume()
 
         if (uuidOrder != null){
+
+            // Escondendo o botão de salvar
+            btnSaveCli.isEnabled = false
+            btnSaveCli.layoutParams.height = 0
+            btnSaveCli.setVisibility(View.INVISIBLE)
+
+
             getDataOrder(uuidOrder.toString())
+        }
+        else {
+            btnUpdateCli.isEnabled = false
+            btnUpdateCli.layoutParams.height = 0
+            btnUpdateCli.setVisibility(View.INVISIBLE)
         }
     }
 
