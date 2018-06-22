@@ -31,7 +31,7 @@ import kotlinx.android.synthetic.main.fragment_address_cli.*
 import kotlinx.android.synthetic.main.fragment_cad_cli.*
 import kotlinx.android.synthetic.main.fragment_save.*
 import kotlinx.android.synthetic.main.fragment_task.*
-import org.jetbrains.anko.progressDialog
+import org.jetbrains.anko.indeterminateProgressDialog
 import org.jetbrains.anko.toast
 import retrofit2.Call
 import retrofit2.Callback
@@ -413,30 +413,27 @@ class OrderServiceActivity : MenuActivity() {
         cep.onFocusChangeListener = OnFocusChangeListener { v, hasFocus ->
 
             val cep = cep.text.toString()
+
+
+
             if (cep.length == 8 && hasFocus == false){
 
+                val mProgressDialog = indeterminateProgressDialog("Pesquisando endereço…",
+                        "Pesquisando")
 
-                val dialog = progressDialog(message = "Pesquisando endereço…",
-                        title = "Buscando dados")
-
+                mProgressDialog.show()
 
                 val call = RetrofitInitializer()
                         .apiRetrofitService()
                         .getEnderecoByCEP(cep)
 
-                dialog.incrementProgressBy(20)
-
                 call.enqueue(object : Callback<CEP> {
 
                     override fun onResponse(call: Call<CEP>, response: Response<CEP>) {
 
-                        dialog.incrementProgressBy(50)
-
                         response?.let {
 
                             val CEPs: CEP? = it.body()
-
-                            dialog.incrementProgressBy(75)
 
                             if (CEPs != null) {
                                 address.setText(CEPs.logradouro)
@@ -444,8 +441,7 @@ class OrderServiceActivity : MenuActivity() {
                                 city.setText(CEPs.localidade)
                                 uf.setText(CEPs.uf)
                             }
-                            dialog.incrementProgressBy(100)
-
+                            mProgressDialog.dismiss()
                         }
 
                     }
