@@ -11,7 +11,6 @@ import android.support.design.widget.BottomNavigationView
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentManager
 import android.support.v4.content.FileProvider
-import android.util.Log
 import android.view.View
 import android.view.View.OnFocusChangeListener
 import android.widget.LinearLayout
@@ -414,7 +413,7 @@ class OrderServiceActivity : MenuActivity() {
         cep.onFocusChangeListener = OnFocusChangeListener { v, hasFocus ->
 
             val cep = cep.text.toString()
-            if (cep.length == 8){
+            if (cep.length == 8 && hasFocus == false){
 
 
                 val dialog = progressDialog(message = "Pesquisando endereço…",
@@ -437,6 +436,7 @@ class OrderServiceActivity : MenuActivity() {
 
                             val CEPs: CEP? = it.body()
 
+                            dialog.incrementProgressBy(75)
 
                             if (CEPs != null) {
                                 address.setText(CEPs.logradouro)
@@ -451,8 +451,7 @@ class OrderServiceActivity : MenuActivity() {
                     }
 
                     override fun onFailure(call: Call<CEP>?, t: Throwable?) {
-                        Log.e("Erro", t?.message)
-                        //progressBar.visibility = View.INVISIBLE
+                        toast("Ouve um erro ao consultar o CEP")
                     }
 
 
