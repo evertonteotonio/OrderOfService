@@ -11,12 +11,16 @@ import android.support.design.widget.BottomNavigationView
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentManager
 import android.support.v4.content.FileProvider
+import android.util.Log
 import android.view.View
+import android.view.View.OnFocusChangeListener
 import android.widget.LinearLayout
 import android.widget.Toast
 import com.karumi.dexter.Dexter
 import com.karumi.dexter.listener.single.DialogOnDeniedPermissionListener
 import evertonteotonio.com.br.orderofservice.R
+import evertonteotonio.com.br.orderofservice.api.CEP
+import evertonteotonio.com.br.orderofservice.api.RetrofitInitializer
 import evertonteotonio.com.br.orderofservice.fragment.*
 import evertonteotonio.com.br.orderofservice.model.OrderService
 import evertonteotonio.com.br.orderofservice.repository.AddressRepository
@@ -28,6 +32,11 @@ import kotlinx.android.synthetic.main.fragment_address_cli.*
 import kotlinx.android.synthetic.main.fragment_cad_cli.*
 import kotlinx.android.synthetic.main.fragment_save.*
 import kotlinx.android.synthetic.main.fragment_task.*
+import org.jetbrains.anko.progressDialog
+import org.jetbrains.anko.toast
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 import java.io.File
 import java.io.IOException
 import java.text.SimpleDateFormat
@@ -46,10 +55,8 @@ class OrderServiceActivity : MenuActivity() {
     var uuidOrder: String? = null
     var order: OrderService? = null
 
-
     val CAMERA_REQUEST_CODE = 0
     lateinit var imageFilePath: String
-
 
     private val mOnNavigationItemSelectedListener = BottomNavigationView.OnNavigationItemSelectedListener { item ->
 
@@ -153,6 +160,7 @@ class OrderServiceActivity : MenuActivity() {
                 .onSameThread()
                 .check();
 
+
         navigation_menu_cad_cli.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener)
     }
 
@@ -239,9 +247,10 @@ class OrderServiceActivity : MenuActivity() {
                     addressId,
                     "teste"
             )
-            val test = 0
+            toast("Dados salvo com sucesso")
 
         }
+
 
         startActivity(Intent(this, OrderListActivity::class.java))
 
@@ -275,6 +284,7 @@ class OrderServiceActivity : MenuActivity() {
                 tvTime.text.toString()
         )
 
+        toast("Dados atualizados com sucesso")
         startActivity(Intent(this, OrderListActivity::class.java))
 
     }
@@ -400,6 +410,59 @@ class OrderServiceActivity : MenuActivity() {
 
     override fun onResume() {
         super.onResume()
+
+        cep.onFocusChangeListener = OnFocusChangeListener { v, hasFocus ->
+
+            val cep = cep.text.toString()
+            if (cep.length == 8){
+
+
+                val dialog = progressDialog(message = "Pesquisando endereço…",
+                        title = "Buscando dados")
+
+
+                val call = RetrofitInitializer()
+                        .apiRetrofitService()
+                        .getEnderecoByCEP(cep)
+
+                dialog.incrementProgressBy(20)
+
+                call.enqueue(object : Callback<CEP> {
+
+                    override fun onResponse(call: Call<CEP>, response: Response<CEP>) {
+
+                        dialog.incrementProgressBy(50)
+
+                        response?.let {
+
+                            val CEPs: CEP? = it.body()
+
+
+                            if (CEPs != null) {
+                                address.setText(CEPs.logradouro)
+                                district.setText(CEPs.bairro)
+                                city.setText(CEPs.localidade)
+                                uf.setText(CEPs.uf)
+                            }
+                            dialog.incrementProgressBy(100)
+
+                        }
+
+                    }
+
+                    override fun onFailure(call: Call<CEP>?, t: Throwable?) {
+                        Log.e("Erro", t?.message)
+                        //progressBar.visibility = View.INVISIBLE
+                    }
+
+
+                })
+
+            }
+
+
+
+        }
 
         if (uuidOrder != null){
 
